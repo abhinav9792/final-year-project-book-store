@@ -1,0 +1,17 @@
+{
+    "super-secret-key": "192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf",
+    "abhinav9001@kg.com":
+    {
+        "u_name":"abhinav9001@kg.com",
+        "name":"abhinav srivastava",
+        "p_word":"2001620109001"
+
+    },
+    "admin_login2":
+    {
+        "abhinav9001@kg.com":"2001620109001",
+        "arsalan9003@kg.com":"2001620109003",
+        "akhilesh9002@kg.com":"2001620109002",
+        "rahul9010@kg.com":"2001620109010"
+    }
+}

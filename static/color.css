@@ -1,0 +1,42 @@
+.heading-banner{
+    /*best color  #344D67 */
+    /* other color code decide
+    1. #2B3467
+    2.E14D2A
+    3.006E7F
+    4. 151D3B
+    5. 464660
+    6. 614124
+    7.  #361500
+    */
+    background-color:  #361500;
+    color:#FFF1F1;
+}
+/*about us page*/
+.about_boxes_main{
+    background-color: #361500;
+}
+.about_boxes_text{
+    background-color:#665A48;
+    color:#FFF1F1;
+}
+
+/* home page css*/
+.category_box{
+    border:15px solid #361500;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+/*sign in page*/
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+  

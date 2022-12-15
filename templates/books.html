@@ -1,0 +1,57 @@
+{% extends "admin_panel_template.html" %}
+{% block body %}
+<!-- table starts here -->
+<br/>
+<br/>
+<div class="col-sm-12 box-heading">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5  text-center">
+      <h3><b></b> Uploaded Books</b> </h3>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</div>
+<br/>
+<div class="col-sm-12 "> 
+    <div class="row">     
+
+    <div class="col-sm-12">    
+    
+          
+          <table class="table box-heading">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col"><b> book id</b></th>
+                <th scope="col"><b>name of book</b></th>
+                <th scope="col"><B>name of author</B></th>
+                <th scope="col"><b>category</b></th>
+                <th scope="col"><b>publisher</b></th>
+                <th scope="col"><b>isbn number</b></th>
+                <th scope="col"><b>file</b></th>
+                <th scope="col"><b>Operation</b></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in books %}
+              <tr>
+                <th scope="row">{{ i[0] }}</th>
+                <td> {{ i[1] }} </td>
+                <td> {{ i[2] }} </td>
+                <td> {{ i[3] }} </td>
+                <td> {{ i[4] }} </td>
+                <td> {{ i[5] }} </td>
+                <td> {{ i[5] }} </td>
+               <td> <i class="fa-sharp fa-solid fa-trash-can" style="font-size:30px; margin:5%;"></i>  
+                <i class="fa-sharp fa-solid fa-person-booth" style="font-size:30px; margin:5%;"></i> </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+</div>
+</div>
+</div>
+
+<br/>
+<br/>
+{% endblock %}
