@@ -3,6 +3,9 @@ from werkzeug.utils import secure_filename
 from db import *
 import json
 
+#self created lib
+from basic_func import file_upload_pdf_test
+
 f= open("templates//data.json","r")
 s= f.read()
 data=json.loads(s)
@@ -153,12 +156,13 @@ def upload_page():
         category= request.form["category"]
         publisher= request.form["publisher"]
         isbn= request.form["isbn"]
-        #/.pdf[[:>:]]/g regular expression will be implemented here
         file= request.files["upload_book"]
         a= secure_filename(file.filename)
+        #this function is testing for file is pdf or not ??
+        a= file_upload_pdf_test(a)
         file.save("static/books/"+a)
         type = request.form["type"]
-        print("type of the book si",type)
+
    
         u_book= Upload_book.insert().values(name_of_book=name,name_of_author=author,category=category,publisher=publisher,isbn=isbn,upload_book="static/books/"+a,type=type)
         u_book.compile().params
