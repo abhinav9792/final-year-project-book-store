@@ -48,23 +48,33 @@
   <h2 style="color:white;"> Current Stats</h2>
 </div> 
 
-      <div class="col-sm-12"    >
+      <div class="container ">
         <div class="row">
+          
+              <div class="col-sm-2 heading-banner text-center">
+                <h2> value</h2>
+                <p> number of books</p>
+              </div>
+              <div class="col-sm-1"></div>
 
-              <div class="col-sm-1"> </div>
-              <div class="col-sm-1 category_box">hello logo</div>
-    
+              <div class="col-sm-2 heading-banner text-center">
+                <h2> value</h2>
+                <p> number of category</p>
+              </div>
               <div class="col-sm-1"></div>
-              <div class="col-sm-1 category_box"></div>
-    
+
+              <div class="col-sm-2 heading-banner text-center">
+                <h2> users</h2>
+                <p> number of users</p>  
+              </div>
               <div class="col-sm-1"></div>
-              <div class="col-sm-1 category_box"></div>
-    
-              <div class="col-sm-1"> </div>
-              <div class="col-sm-1 category_box"></div>
-\
-              <div class="col-sm-1"> </div>
-              <div class="col-sm-1 category_box"></div>
+              
+              <div class="col-sm-2 heading-banner text-center">
+                <h2> publishers</h2>
+                <p> number of publisher</p>
+              </div>
+              <div class="col-sm-1"></div>
+
 
                     
         </div>
@@ -100,20 +110,28 @@
 <div class="col-sm-12 heading-banner" >
   <h2 style="color:white;"> popular books</h2>
 </div>
+<br/>
 <div class="col-sm-12" >
-    
+      
         <div class="row" >
-            <div class="col-sm-1" style="margin-left:6%;"></div>
-            <div class="col-sm-2 about_boxes_text"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quidem nobis  rem aspernatur.</div>
-            <div class="col-sm-1" ></div>
-            <div class="col-sm-2 about_boxes_text"></div>
-            <div class="col-sm-1" ></div>
-            <div class="col-sm-2 about_boxes_text">
-            <!--   <embed src="{{url_for('static',filename='schlorship_4_th_year.pdf')}}" width="200px" height="200px" /></div> -->
-            <div class="col-sm-1" ></div>
-            <div class="col-sm-2 about_boxes_text"> hello</div>
+          {% for i in book %}
+           <div class="col-sm-1"></div>
+           <div class="col-sm-1">
+            <img src="{{ i[8] }}"/>
+            <p> 
+             
+            <b>{{ i[1] }} </b> 
+             <br/>{{ i[2] }} 
+             <br/>
+            <span class="badge rounded-pill bg-info text-dark"> tags :{{ i[3] }}</span>
+            </p>
+           
+           </div>
+           {% endfor %}
         </div>
+      
        </div>
+    <a href="#" style="text-align:rght;"> more books here...</a>
        <br/>
 
     <br/>

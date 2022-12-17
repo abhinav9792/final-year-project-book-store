@@ -4,7 +4,7 @@ from db import *
 import json
 
 #self created lib
-from basic_func import file_upload_pdf_test
+from basic_func import file_upload_pdf_test,add_image
 
 f= open("templates//data.json","r")
 s= f.read()
@@ -16,13 +16,15 @@ app.config.update(
     SECRET_KEY= data["super-secret-key"]
 )
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
 
-@app.route("/home")
+@app.route("/")
 def home_page():
-    return render_template("home2.html")
+    conn = engine.connect()
+    shows = Upload_book.select().where(Upload_book.c.images != " ")
+    result =conn.execute(shows)
+    book_list= result.fetchall()
+    print(len(book_list))
+    return render_template("home2.html",book=book_list)
     
 @app.route("/home1")
 def home_page1():
@@ -163,8 +165,11 @@ def upload_page():
         file.save("static/books/"+a)
         type = request.form["type"]
 
-   
-        u_book= Upload_book.insert().values(name_of_book=name,name_of_author=author,category=category,publisher=publisher,isbn=isbn,upload_book="static/books/"+a,type=type)
+        #implement here
+        image= add_image(a,name)
+
+        #database uploading goes here--
+        u_book= Upload_book.insert().values(name_of_book=name,name_of_author=author,category=category,publisher=publisher,isbn=isbn,upload_book="static/books/"+a,type=type,images=image)
         u_book.compile().params
         conn = engine.connect()
         conn.execute(u_book)

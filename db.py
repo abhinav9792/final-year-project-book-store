@@ -41,6 +41,7 @@ Upload_book =Table(
     Column("publisher",String),
     Column("isbn",String),
     Column("upload_book",String),
-    Column("type",String)
+    Column("type",String),
+    Column("images",String)
 )
 meta.create_all(engine)
