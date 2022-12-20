@@ -20,19 +20,19 @@
         <div class=" col-sm-12 text-center">
             <h1 class="box-heading"> Admin zone</h1>
             <div class = "col-sm-12" >
-                <h1 class="box-heading">Welcome to  Dashboard :{{ sess }}</h1>
+                <h1 class="box-heading">Welcome to  Dashboard :{{ sess["name"] }}</h1>
       
             </div>
         </div>
         <div class="col-sm-12">
             <div class="row ">
                 <div class="col-sm-3 text-center box-heading" >
-                    <h3> {{ sess }}</h3>
+                    <h3> abhinav srivastava</h3>
                     <div class="col-sm-12" >
                         <div class="row">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-6" style="margin-left:-6%">
-                                <img src="{{url_for('static',filename='abhinav.jpg')}}" class="rounded-circle">
+                                <img src= "static/{{ sess['filename'] }}" class="rounded-circle">
                                 </div>
                                 <hr/>
                             <div class="col-sm-3"></div>
@@ -110,9 +110,9 @@
                         <div class="row">
                             <div class="col-sm-1"></div>
                             <div class="col-sm-10 box">
-                                <h4>
+                                <h6>
                                     <a href="/logout"> logout</a>
-                                </h4>
+                                </h6>
                                 </div>
                             <div class="col-sm-1"></div>
                         </div>
@@ -123,7 +123,7 @@
                             <div class="col-sm-1"></div>
                             <div class="col-sm-10 box"> 
                                 <h4 >
-                                    <a href="/admin_login_next"> manage books</a>
+                                    <a href="/"> Home</a>
                                 </h4>
                                 </div>
                             <div class="col-sm-1"></div>

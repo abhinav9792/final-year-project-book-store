@@ -139,87 +139,22 @@
       <h2 style="color:white;"> More books</h2>
   </div>
     <div class="col-sm-12" >
+    
      <div class="row">
-         
-         <div class="col-sm-2 about_boxes_text" style="margin-left:5%;"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quidem nobis  rem aspernatur.</div>
-         <div class="col-sm-1" ></div>
-         <div class="col-sm-2 about_boxes_text">hello</div>
-         <div class="col-sm-1" ></div>
-         <div class="col-sm-2 about_boxes_text">hello</div>
-         <div class="col-sm-1" ></div>
-         <div class="col-sm-2 about_boxes_text">hello</div>
-         <div class="col-sm-1" ></div>
-      
+      {% for i in m_books %}
+         <div class="col-sm-1 " style="margin-left:5%;">
+          <img src="{{ i[8] }}"/>
+          <p> {{ i[0] }}<br/>
+           {{ i[1] }}<br/>
+           {{ i[2] }}<br/>
+          </p>
+        </div>
+         {% endfor %}
      </div>
+    
 <br/>
-     <div class="row">
-       
-        <div class="col-sm-2 about_boxes_text" style="margin-left:5%;"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quidem nobis  rem aspernatur.</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-
     </div>
     <br/>
-     <div class="row">
-        
-        <div class="col-sm-2 about_boxes_text" style="margin-left:5%;"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quidem nobis  rem aspernatur.</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-
-    </div>
-
-    <br/>
-     <div class="row">
-       
-        <div class="col-sm-2 about_boxes_text" style="margin-left:5%;"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quidem nobis  rem aspernatur.</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-
-    </div>
-
-    <br/>
-     <div class="row">
-      
-        <div class="col-sm-2 about_boxes_text" style="margin-left:5%;"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quidem nobis  rem aspernatur.</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text">hello</div>
-        <div class="col-sm-1" ></div>
-
-    </div>
-
-    <br/>
-     <div class="row"  >
-      
-        <div class="col-sm-2 about_boxes_text" style="margin-left:5%;"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quidem nobis  rem aspernatur.</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text" >hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text" >hello</div>
-        <div class="col-sm-1" ></div>
-        <div class="col-sm-2 about_boxes_text" >hello</div>
-        <div class="col-sm-1" ></div>
-
-    </div>
-    </div>
-    <br/>
+    
 </div>
     {% endblock %}

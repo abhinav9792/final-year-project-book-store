@@ -3,7 +3,8 @@ from werkzeug.utils import secure_filename
 from db import *
 import json
 
-#self created lib
+
+#self created library
 from basic_func import file_upload_pdf_test,add_image
 
 f= open("templates//data.json","r")
@@ -19,12 +20,23 @@ app.config.update(
 
 @app.route("/")
 def home_page():
+    #logic for stats section
+    
+
+    #logic for displaying books on popular books section
     conn = engine.connect()
     shows = Upload_book.select().where(Upload_book.c.images != " ")
     result =conn.execute(shows)
-    book_list= result.fetchall()
-    print(len(book_list))
-    return render_template("home2.html",book=book_list)
+    pop_books= result.fetchall()
+
+
+    #logic for more books
+    conn = engine.connect()
+    shows = Upload_book.select().where(Upload_book.c.images != " ")
+    result =conn.execute(shows)
+    more_books= result.fetchall()
+
+    return render_template("home2.html",book=pop_books,m_books=more_books)
     
 @app.route("/home1")
 def home_page1():
@@ -107,10 +119,12 @@ def admin_login_next():
     if request.method =="POST":
         u_name=request.form["u_name"]
         p_word =request.form["p_word"]
-
+        
         if u_name == data[u_name]["u_name"] and p_word== data[u_name]["p_word"] :
-            session["value"] = data[u_name]["name"]
+            session["value"] = data[u_name]
             sess =session.get("value")
+            sess = data[u_name]
+            
             return render_template("admin_Zone.html",sess=sess)
         else:
             return '<h1 style="background-color:red; font-size:40px; color:white; text-align:center;"> something went wrong </h1>'
@@ -128,27 +142,39 @@ def logout():
 
 @app.route("/contact_data")
 def contact_data():
-    conn = engine.connect()
-    shows = Contact.select()
-    result =conn.execute(shows)
-    rows= result.fetchall()
-    return render_template("contact_us_data.html",data = rows)
+    #if('value' in session and session['value'] == user['username']):
+    if "value" in session:
+        sess= session['value'] 
+        conn = engine.connect()
+        shows = Contact.select()
+        result =conn.execute(shows)
+        rows= result.fetchall()
+        return render_template("contact_us_data.html",data = rows,sess=sess)
+    else: return "please login"
 
 @app.route("/register_data")
 def register_data():
-    conn = engine.connect()
-    shows= Register.select()
-    result = conn.execute(shows)
-    rows = result.fetchall()
-    return render_template("register_data.html",data= rows)
+    if "value" in session:
+        sess= session['value'] 
+        conn = engine.connect()
+        shows= Register.select()
+        result = conn.execute(shows)
+        rows = result.fetchall()
+        return render_template("register_data.html",data= rows,sess=sess)
+    else: return "please login"
 
 @app.route("/manage_book")
 def manage_book():
-    return render_template("manage_books.html")
+    if "value" in session:
+        sess= session['value'] 
+        return render_template("manage_books.html",sess=sess)
 
 @app.route("/upload_book")
 def upload_book():
-   return render_template("upload_books.html")
+    if "value" in session:
+        sess= session['value'] 
+        return render_template("upload_books.html",sess=sess)
+    else: return "please login"
 
 @app.route("/upload_page", methods=["GET","POST"])
 def upload_page():
@@ -179,13 +205,23 @@ def upload_page():
     #
 @app.route("/books")
 def books():
-    conn =engine.connect()
-    books =Upload_book.select()
-    result= conn.execute(books)
-    rows= result.fetchall()
+    if "value" in session:
+        sess= session['value'] 
+        conn =engine.connect()
+        books =Upload_book.select()
+        result= conn.execute(books)
+        rows= result.fetchall()
+        return render_template("books.html",books=rows,sess=sess)
+    else: return "<h1> please login </h1>"
+
+@app.route("/general_setting")
+def general_settings():
+    if "value" in session:
+        sess=session["value"]
+        return render_template("general_settings.html",sess=sess)
+    else: return "please login"
 
 
-    return render_template("books.html",books=rows)
-
+        
 if __name__ == "__main__":
     app.run(debug=True)

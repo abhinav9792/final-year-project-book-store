@@ -5,7 +5,7 @@ import re
 import fitz
 import io
 from PIL import Image
-
+from datetime import datetime
 # 1 .
 #code for checking if the uploaded file is pdf or not
 def file_upload_pdf_test(string):
@@ -45,3 +45,10 @@ def add_image(book,name):
     pix.save("static/book_img/"+name+"-page-%i.jpeg" % page.number)
     print("image added successfully")
     return "static/book_img/"+name+"-page-%i.jpeg" % page.number
+
+def datetimes():
+    now = datetime.now()
+    cur_time = now.strftime("%d/%m/%Y %H:%M:%S")
+    return cur_time
+
+print(datetimes())
