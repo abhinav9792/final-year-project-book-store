@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 
 #self created library
-from basic_func import file_upload_pdf_test,add_image
+from basic_func import file_upload_pdf_test,add_image,reduce_image
 
 f= open("templates//data.json","r")
 s= f.read()
@@ -210,29 +210,34 @@ def upload_book():
 
 @app.route("/upload_page", methods=["GET","POST"])
 def upload_page():
-    if request.method =="POST":
-        name= request.form["name_of_book"]
-        author= request.form["name_of_author"]
-        category= request.form["category"]
-        publisher= request.form["publisher"]
-        isbn= request.form["isbn"]
-        file= request.files["upload_book"]
-        a= secure_filename(file.filename)
-        #this function is testing for file is pdf or not ??
-        a= file_upload_pdf_test(a)
-        file.save("static/books/"+a)
-        type = request.form["type"]
+    if "value" in session:
+        sess= session['value']
+        if request.method =="POST":
+            name= request.form["name_of_book"]
+            author= request.form["name_of_author"]
+            category= request.form["category"]
+            publisher= request.form["publisher"]
+            isbn= request.form["isbn"]
+            file= request.files["upload_book"]
+            a= secure_filename(file.filename)
+            #this function is testing for file is pdf or not ??
+            a= file_upload_pdf_test(a)
+            file.save("static/books/"+a)
+            type = request.form["type"]
 
-        #implement here
-        image= add_image(a,name)
+            #implement here
+            b= add_image(a,name)
+            image=reduce_image(b)
 
-        #database uploading goes here--
-        u_book= Upload_book.insert().values(name_of_book=name,name_of_author=author,category=category,publisher=publisher,isbn=isbn,upload_book="static/books/"+a,type=type,images=image)
-        u_book.compile().params
-        conn = engine.connect()
-        conn.execute(u_book)
-        return "success"
-    else: return "something went wrong"
+
+            #database uploading goes here--
+            u_book= Upload_book.insert().values(name_of_book=name,name_of_author=author,category=category,publisher=publisher,isbn=isbn,upload_book="static/books/"+a,type=type,images=image,added_by=sess["name"])
+            u_book.compile().params
+            conn = engine.connect()
+            conn.execute(u_book)
+            return "success"
+        else: return "something went wrong"
+    else: return "Please login"
 
     #
 @app.route("/books")

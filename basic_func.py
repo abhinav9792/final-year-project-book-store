@@ -44,11 +44,16 @@ def add_image(book,name):
     pix = page.get_pixmap()
     pix.save("static/book_img/"+name+"-page-%i.jpeg" % page.number)
     print("image added successfully")
-    return "static/book_img/"+name+"-page-%i.jpeg" % page.number
-
+    return name+"-page-%i.jpeg" % page.number
+# $. get current date time 
 def datetimes():
     now = datetime.now()
     cur_time = now.strftime("%d/%m/%Y %H:%M:%S")
     return cur_time
 
-print(datetimes())
+#5. change the size of image
+def reduce_image(b):
+    image = Image.open("static/book_img/"+b)
+    new_image = image.resize((100,100))
+    new_image.save( "static/book_img/"+b)
+    return "static/book_img/"+b

@@ -43,6 +43,7 @@ Upload_book =Table(
     Column("upload_book",String),
     Column("type",String),
     Column("images",String),
+    Column("added_by",String)
 
 )
 meta.create_all(engine)
