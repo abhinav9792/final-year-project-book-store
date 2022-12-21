@@ -39,4 +39,20 @@ flex: 1;
 height: 1px;
 background: #eee;
 }
-  
+
+/*for user sign in page */
+
+.heading-banner2{
+    /*best color  #344D67 */
+    /* other color code decide
+    1. #2B3467
+    2.E14D2A
+    3.006E7F
+    4. 151D3B
+    5. 464660
+    6. 614124
+    7.  #361500
+    */
+    background-color:  #2B3467;
+    color:#FFF1F1;
+}

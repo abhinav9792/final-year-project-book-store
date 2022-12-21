@@ -1,5 +1,5 @@
 #for database
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,and_
 import sqlalchemy
 from sqlalchemy import MetaData
 from sqlalchemy import Table, Column, Integer, String, MetaData
@@ -42,6 +42,7 @@ Upload_book =Table(
     Column("isbn",String),
     Column("upload_book",String),
     Column("type",String),
-    Column("images",String)
+    Column("images",String),
+
 )
 meta.create_all(engine)

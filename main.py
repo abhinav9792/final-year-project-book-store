@@ -2,6 +2,7 @@ from flask import Flask,render_template,request, flash,session
 from werkzeug.utils import secure_filename
 from db import *
 import json
+from sqlalchemy.orm import sessionmaker
 
 
 #self created library
@@ -16,6 +17,8 @@ app.config.update(
     TESTING=True,
     SECRET_KEY= data["super-secret-key"]
 )
+
+#connect to engine
 
 
 @app.route("/")
@@ -92,6 +95,28 @@ def register_done():
 def login():
     return render_template("sign_in.html")
 
+@app.route("/login_next",methods=["GET","POST"])
+def login_next():
+    if request.method =="POST":
+        u_name=request.form["u_name"]
+        p_word =request.form["p_word"]
+# this logic  is wroking but when we enter the wrong password it throws "list out of bound error"wrong credentails
+# possible idea to fix
+# 1. use try except
+# 2. throw error
+# 3. using empty list logic 
+        Session = sessionmaker(bind = engine)
+        session = Session()
+        login = session.query(Register).filter((Register.c.Email.like(u_name)) & Register.c.Password .like(p_word)) 
+        print("-----1111111111111111111",login[0])
+
+        if login != []:
+            for i in login:
+                print("----------->>>>",i[1])
+            return render_template("profile page for user.html")
+        else: return "something went wrong"
+    else:return render_template("sign_in.html")
+
 @app.route("/about")
 def about_us():
     return render_template("About.html")
@@ -108,7 +133,14 @@ def terms_and_condition():
 def book_info():
     return render_template("book_info.html")
 
-#admin zone
+
+
+@app.route("/book_category")
+def book_cateogry():
+    return render_template("book_category.html")
+#--------------------------------------------------------------------------------------#
+#---------------------->>>>>>>>ADMIN ZONE<<<<<<<<<<<<<<<------------------------------#
+#--------------------------------------------------------------------------------------#
 
 @app.route("/admin_login")
 def login_admin():
@@ -220,6 +252,18 @@ def general_settings():
         sess=session["value"]
         return render_template("general_settings.html",sess=sess)
     else: return "please login"
+
+# ------------------>need some work <<<<<<<<<<<---------
+@app.route("/book_test")
+def book_test():
+    if "value" in session:
+        sess=session["value"]
+        conn =engine.connect()
+        books =Upload_book.select()
+        result= conn.execute(books)
+        rows= result.fetchall()
+        return render_template("books_test.html",books=rows,sess=sess)
+
 
 
         
