@@ -45,7 +45,7 @@
 <!-- ends here-->    
 <!-- stats section starts here -->
 <div class="col-sm-12 heading-banner" >
-  <h2 style="color:white;"> Current Stats</h2>
+  <h2 > Current Stats</h2>
 </div> 
 
       <div class="container ">
@@ -82,7 +82,7 @@
 <br/>
 <!-- ends here stats section -->
 <div class="col-sm-12 heading-banner" >
-  <h2 style="color:white;"> Search books by category</h2>
+  <h2 > Search books by category</h2>
 </div> 
 
       <div class="col-sm-12 text-center">
@@ -91,27 +91,44 @@
               <div class="col-sm-1"> </div>
               <div class="col-sm-1 heading-banner " >
               <h1 class="text-center">C</h1>
-              <b>category</b>  
+              <b>Study</b>  
               </div>
     
               <div class="col-sm-1"></div>
-              <div class="col-sm-1 heading-banner"></div>
+              <div class="col-sm-1 heading-banner">
+                <h1 class="text-center">C</h1>
+              <b>Study</b> 
+              </div>
     
               <div class="col-sm-1"></div>
-              <div class="col-sm-1 heading-banner"></div>
+              <div class="col-sm-1 heading-banner">
+                <h1 class="text-center">C</h1>
+              <b>Study</b> 
+              </div>
     
               <div class="col-sm-1"> </div>
-              <div class="col-sm-1 heading-banner"></div>
-\
+              <div class="col-sm-1 heading-banner">
+                <h1 class="text-center">C</h1>
+              <b>Study</b> 
+              </div>
               <div class="col-sm-1"> </div>
-              <div class="col-sm-1 heading-banner"></div>
+              <div class="col-sm-1 heading-banner">
+                <h1 class="text-center">C</h1>
+              <b>Study</b> 
+              </div>
+
+              <div class="col-sm-1"> </div>
+              <div class="col-sm-1 heading-banner " >
+              <h1 class="text-center">C</h1>
+              <b>Study</b>  
+              </div>
 
                     
         </div>
       </div>
 <br/>
 <div class="col-sm-12 heading-banner" >
-  <h2 style="color:white;"> popular books</h2>
+  <h2 > popular books</h2>
 </div>
 <br/>
 <div class="col-sm-12" >
@@ -119,8 +136,8 @@
         <div class="row" >
           {% for i in book %}
           
-           <div class="col-sm-2">
-            <img src="{{ i[8] }}"/>
+           <div class="col-sm-2 boxes text-center">
+            <img  src="{{ i[8] }}"/>
             <p> 
              
             <b>{{ i[1] }} </b> 
@@ -139,7 +156,7 @@
 
     <br/>
     <div class="col-sm-12 heading-banner">
-      <h2 style="color:white;"> More books</h2>
+      <h2 > More books</h2>
   </div>
     <div class="col-sm-12" >
     
@@ -150,6 +167,7 @@
           <p> 
            <b>{{ i[1] }}</b><br/>
            {{ i[2] }}<br/>
+           <span class="badge rounded-pill bg-info text-dark"> tags :{{ i[3] }}</span>
           </p>
         </div>
          {% endfor %}

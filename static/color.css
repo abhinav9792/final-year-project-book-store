@@ -1,6 +1,4 @@
-body{
-    background-color:#BFEAF5;
-}
+
 .heading-banner{
     /*best color  #344D67 */
     /* other color code decide
@@ -58,4 +56,9 @@ background: #eee;
     */
     background-color:  #2B3467;
     color:#FFF1F1;
+}
+
+/* profile page */
+.boxes{
+    background-color: #9EA1D4;
 }

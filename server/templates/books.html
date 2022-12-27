@@ -1,0 +1,61 @@
+{% extends "admin_panel_template.html" %}
+{% block body %}
+<!-- table starts here -->
+<br/>
+<br/>
+<div class="col-sm-12 box-heading">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5  text-center">
+      <h3><b></b> Uploaded Books</b> </h3>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</div>
+<br/>
+<div class="col-sm-12 overflow-scroll"> 
+    <div class="row">     
+
+    <div class="col-sm-12 ">    
+    
+          
+          <table class="table box-heading overflow-auto" style="height:300px;">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col"><b> Book ID</b></th>
+                <th scope="col"><b>Name Of Book</b></th>
+                <th scope="col"><B>Name Of Author</B></th>
+                <th scope="col"><b>Category</b></th>
+                <th scope="col"><b>Publisher</b></th>
+                <th scope="col"><b>ISBN number</b></th>
+                <th scope="col"><b>File</b></th>
+                <th scope="col"><b>Operation</b></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in books %}
+              <tr>
+                <form action="/books" method="POST"> 
+                <th scope="row"> <input type="hidden" name="id" value="{{ i[0] }}"/>{{ i[0] }}</th>
+                <td><input type="hidden" name="name_b" value="{{ i[1] }}"/> {{ i[1] }} </td>
+                <td> {{ i[2] }} </td>
+                <td> {{ i[3] }} </td>
+                <td> {{ i[4] }} </td>
+                <td> {{ i[5] }} </td>
+                <td> {{ i[5] }} </td>
+               <td> <button type="submit" class="btn-dark">  <i class="fa-sharp fa-solid fa-trash-can" style="font-size:20px; "></i>  </button>
+               </button></form>
+                <i class="fa-sharp fa-solid fa-person-booth" style="font-size:20px; "></i>  
+            
+               </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+</div>
+</div>
+</div>
+
+<br/>
+<br/>
+{% endblock %}

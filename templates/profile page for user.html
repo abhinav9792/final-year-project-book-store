@@ -1,17 +1,16 @@
 {% extends "general_templates.html" %}
 {% block title%} user login page {% endblock %}
 {% block body %} 
-
-        <div class="col-sm-12 heading-banner" >
+<br/>
+        <div class="col-sm-12 " >
             <div class="row ">
-                <div class="col-sm-3 heading-banner" >
-                    <h3> Name will appear here</h3>
+                <div class="col-sm-3 heading-banner text-center " >
+                    <h3 class="container-fluid boxes"> {{ log[1] }}</h3>
                     <div class="col-sm-12" >
                         <div class="row">
                             <div class="col-sm-3"></div>
-                            <div class="col-sm-6" style="background-color: blue;">
-                                <h2>
-                                    Profile pic will appear here 
+                            <div class="col-sm-6 boxes" >
+                                <h2>profile will appear here 
         
                                        </h2>
                                 </div>
@@ -25,9 +24,9 @@
                     <div class="col-sm-12" >
                         <div class="row">
                             <div class="col-sm-1"></div>
-                            <div class="col-sm-10" style="background-color: blue;">
+                            <div class="col-sm-10 boxes">
                                 <h4>
-                                    user profile setting
+                                Profile Settings
                                 </h4>
                                 </div>
                             <div class="col-sm-1"></div>
@@ -38,7 +37,20 @@
                     <div class="col-sm-12" >
                         <div class="row">
                             <div class="col-sm-1"></div>
-                            <div class="col-sm-10" style="background-color: blue;">
+                            <div class="col-sm-10 boxes">
+                                <h4>
+                                    Your Books
+                                </h4>
+                                </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div class="col-sm-12" >
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10 boxes">
                                 <h4>
                                     user profile setting
                                 </h4>
@@ -51,9 +63,9 @@
                     <div class="col-sm-12" >
                         <div class="row">
                             <div class="col-sm-1"></div>
-                            <div class="col-sm-10" style="background-color: blue;">
+                            <div class="col-sm-10 boxes">
                                 <h4>
-                                    user profile setting
+                                    Read your books
                                 </h4>
                                 </div>
                             <div class="col-sm-1"></div>
@@ -64,22 +76,9 @@
                     <div class="col-sm-12" >
                         <div class="row">
                             <div class="col-sm-1"></div>
-                            <div class="col-sm-10" style="background-color: blue;">
+                            <div class="col-sm-10 boxes">
                                 <h4>
-                                    user profile setting
-                                </h4>
-                                </div>
-                            <div class="col-sm-1"></div>
-                        </div>
-                    </div>
-
-                    <br/>
-                    <div class="col-sm-12" >
-                        <div class="row">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-10" style="background-color: blue;">
-                                <h4>
-                                    user profile setting
+                                    Manage books
                                 </h4>
                                 </div>
                             <div class="col-sm-1"></div>
@@ -88,27 +87,27 @@
 
                     <br/>
                 </div>
-                                <div class="col-sm-9" style="background-color: black;">
-                                    <h1> Stats will Appear here </h1>  
-                                    <div class="col-sm-12" >
+                                <div class="col-sm-9 text-center" >
+                                    <h1 class="heading-banner "> Stats will Appear here </h1>  
+                                    <div class="col-sm-10" >
                                         <div class="row">
-                                            <div class="col-sm-1"></div>
-                                            <div class="col-sm-3" style="background-color: blue;">
-                                                <h2>
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit 
-                                                </h2>
-                                            </div>
-                                            <div class="col-sm-3" style="background-color: navy;">
-                                                <h2>
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit 
-                                                </h2>
-                                            </div>
-                                            <div class="col-sm-3" style="background-color: green;">
-                                                <h2>
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit 
-                                                </h2>
-                                            </div>
                                             <div class="col-sm-2"></div>
+                                            <div class="col-sm-3 boxes">
+                                                <h2>
+                                                    stat1
+                                                </h2>
+                                            </div>
+                                            <div class="col-sm-3 boxes" >
+                                                <h2>
+                                                   stat2 
+                                                </h2>
+                                            </div>
+                                            <div class="col-sm-3 boxes">
+                                                <h2>
+                                                stat3 
+                                                </h2>
+                                            </div>
+                                            <div class="col-sm-1"></div>
                                         </div>
                                     </div>    
                                     <br/>
@@ -118,43 +117,55 @@
                                         
                                         <div class="row">  
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-10" style="background-color:teal;">
-                                            <div class="col-sm-12" style="background-color:aqua;"> <h3> your book shelf   </h3></div>
-                                            <div class="col-sm-12" style="background-color:aqua;"> <h5> Lorem ipsum dolor sit amet 
-                                                consectetur adipisicing elit.el 
-                                                similique! Porro explicabo quisquam beatae? Commodi, quaerat ipsa? </h5></div>
+                                        <div class="col-sm-10 " >
+                                            <div class="col-sm-12 boxes "> <h3> Your Details   </h3></div>
+                                            <div class="col-sm-12 boxes"> 
+                                                <p>
+                                                   <b> Your Name :</b> {{ log[1]}} <br/>
+                                                   <b> Your Email :</b> {{ log[2]}}<br/>
+                                                   <b> Your Password :</b> {{ log[3]}} <br/>
+                                                </p>
+                                            </div>
                                             </div>
                                         <div class="col-sm-1"></div>
                                     </div>
                                     </div>
                                     <!-- your book section-->
-<br/>
                                      <!-- your uploaded books  -->
                                
                                      <div class="col-sm-12"> 
                                         
                                         <div class="row">  
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-10" style="background-color:teal;">
-                                            <div class="col-sm-12" style="background-color:aqua;"> <h3> your book shelf   </h3></div>
-                                            <div class="col-sm-12" style="background-color:aqua;"> <h5> Lorem ipsum dolor sit amet 
-                                                consectetur adipisicing elit.el 
-                                                similique! Porro explicabo quisquam beatae? Commodi, quaerat ipsa? </h5></div>
-                                            </div>
+                                        <div class="col-sm-10">
+                                            <div class="accordion" id="accordionExample">
+                                                <div class="accordion-item">
+                                                  <h2 class="accordion-header" id="headingOne">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                      Read your books
+                                                    </button>
+                                                  </h2>
+                                                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                      <input type="file" placeholder="click here to upload your book" class="btn-dark"/>
+                                                      <input type="submit" name="click me"/>
+                                                    </div>
+                                                  </div>
+                                                </div>
                                         <div class="col-sm-1"></div>
                                     </div>
                                     </div>
                                     <!-- your book section-->
                                     <br/>
                                  <!-- your books for selling/donation section -->
-                               
+                               <br/>
                                  <div class="col-sm-12"> 
                                         
                                     <div class="row">  
                                     <div class="col-sm-1"></div>
-                                    <div class="col-sm-10" style="background-color:teal;">
-                                        <div class="col-sm-12" style="background-color:aqua;"> <h3> your book shelf   </h3></div>
-                                        <div class="col-sm-12" style="background-color:aqua;"> <h5> Lorem ipsum dolor sit amet 
+                                    <div class="col-sm-10 ">
+                                        <div class="col-sm-12 boxes"> <h3> your book shelf   </h3></div>
+                                        <div class="col-sm-12 boxes"> <h5> Lorem ipsum dolor sit amet 
                                             consectetur adipisicing elit.el 
                                             similique! Porro explicabo quisquam beatae? Commodi, quaerat ipsa? </h5></div>
                                         </div>
@@ -167,4 +178,5 @@
             </div>
            
         </div>
+        <br/>
         {% endblock %}

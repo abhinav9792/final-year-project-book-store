@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 from db import *
 import json
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import delete
 
 
 #self created library
@@ -11,6 +12,7 @@ from basic_func import file_upload_pdf_test,add_image,reduce_image
 f= open("templates//data.json","r")
 s= f.read()
 data=json.loads(s)
+
 
 app = Flask(__name__)
 app.config.update(
@@ -40,11 +42,7 @@ def home_page():
     more_books= result.fetchall()
 
     return render_template("home2.html",book=pop_books,m_books=more_books)
-    
-@app.route("/home1")
-def home_page1():
-    return render_template("Homepage.html")
-
+#--------------->>>>>>>CONTACT US<<<<<<<<<<-------------------------#
 @app.route("/contact")
 def contact_us():
     return render_template("Contact_us.html")
@@ -71,7 +69,7 @@ def contact_us1():
         return f"submiited here are the details,{name}, and other details are"
     else:
         return "<h1> no found </h1>"
-
+#---------------->>>>>>>>>>REGISTER<<<<<<<<------------------------#
 @app.route("/register")
 def register():
     return render_template("register.html")
@@ -90,7 +88,7 @@ def register_done():
         conn.execute(register)
         flash("you have been registered")
         return render_template("register.html")
-
+#---------->>>>>>>LOGIN/SIGNUP<<<<<<<-----------------#
 @app.route("/login")
 def login():
     return render_template("sign_in.html")
@@ -106,15 +104,19 @@ def login_next():
 # 2. throw error
 # 3. using empty list logic 
         Session = sessionmaker(bind = engine)
-        session = Session()
-        login = session.query(Register).filter((Register.c.Email.like(u_name)) & Register.c.Password .like(p_word)) 
-        print("-----1111111111111111111",login[0])
+        reg_session = Session()
+        login = reg_session.query(Register).filter((Register.c.Email.like(u_name)) & Register.c.Password .like(p_word)) 
 
         if login != []:
             for i in login:
-                print("----------->>>>",i[1])
-            return render_template("profile page for user.html")
-        else: return "something went wrong"
+                print(i)
+            data=i
+            
+            session["value"] = data[1]
+            log=data
+           
+            return render_template("profile page for user.html",log=log)
+        else: return "wrong login information"
     else:return render_template("sign_in.html")
 
 @app.route("/about")
@@ -129,15 +131,26 @@ def privacy_ploicy():
 def terms_and_condition():
     return render_template("tc.html")
 
-@app.route("/book_info")
-def book_info():
-    return render_template("book_info.html")
+@app.route("/book_info/<path:book_name>")
+def book_info(book_name):
+    conn = engine.connect()
+    shows = Upload_book.select().where(Upload_book.c.name_of_book == book_name)
+    result =conn.execute(shows)
+    res= result.fetchone()
+    for i in res:
+        print("---->>>your res--",i)
+    return render_template("book_info.html",res=res)
 
 
 
 @app.route("/book_category")
 def book_cateogry():
     return render_template("book_category.html")
+
+#---------->>>>>>OPEN PDF SECTION<<<<----------------------#
+@app.route("/pdf")
+def open_pdf():
+    return render_template("open_pdf.html")
 #--------------------------------------------------------------------------------------#
 #---------------------->>>>>>>>ADMIN ZONE<<<<<<<<<<<<<<<------------------------------#
 #--------------------------------------------------------------------------------------#
@@ -194,7 +207,7 @@ def register_data():
         rows = result.fetchall()
         return render_template("register_data.html",data= rows,sess=sess)
     else: return "please login"
-
+#----------------->>>>>>>>>> book section<<<<<<<<-----------------#
 @app.route("/manage_book")
 def manage_book():
     if "value" in session:
@@ -226,22 +239,28 @@ def upload_page():
             type = request.form["type"]
 
             #implement here
-            b= add_image(a,name)
+            b=add_image(a,name)
             image=reduce_image(b)
 
 
             #database uploading goes here--
             u_book= Upload_book.insert().values(name_of_book=name,name_of_author=author,category=category,publisher=publisher,isbn=isbn,upload_book="static/books/"+a,type=type,images=image,added_by=sess["name"])
+
             u_book.compile().params
             conn = engine.connect()
             conn.execute(u_book)
-            return "success"
+            return "success "
         else: return "something went wrong"
     else: return "Please login"
 
     #
-@app.route("/books")
+@app.route("/books",methods=["GET","POST"])
 def books():
+    if request.method == "POST":
+        id=request.form["id"]
+        a=Upload_book.delete().where(Upload_book.c.b_Id == id)
+        conn = engine.connect()
+        conn.execute(a)
     if "value" in session:
         sess= session['value'] 
         conn =engine.connect()
@@ -249,6 +268,7 @@ def books():
         result= conn.execute(books)
         rows= result.fetchall()
         return render_template("books.html",books=rows,sess=sess)
+    
     else: return "<h1> please login </h1>"
 
 @app.route("/general_setting")
