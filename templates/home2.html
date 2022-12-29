@@ -44,36 +44,48 @@
 </div>
 <!-- ends here-->    
 <!-- stats section starts here -->
-<div class="col-sm-12 heading-banner" >
-  <h2 > Current Stats</h2>
+<br/>
+<div class="col-sm-12 " >
+  <div class="row"> 
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <h2 class="text-center heading-banner"> Current Stats</h2>
+    </div>
+    <div class="col-sm-4"></div>
+ 
+  </div>
 </div> 
 
       <div class="container ">
         <div class="row">
+          <div class="col-sm-2 ">
           
-              <div class="col-sm-2 heading-banner text-center">
+          </div>
+              <div class="col-sm-2 boxes text-center">
                 <h2> value</h2>
                 <p> number of books</p>
               </div>
-              <div class="col-sm-1"></div>
+           
 
-              <div class="col-sm-2 heading-banner text-center">
+              <div class="col-sm-2 boxes text-center">
                 <h2> value</h2>
                 <p> number of category</p>
               </div>
-              <div class="col-sm-1"></div>
+              
 
-              <div class="col-sm-2 heading-banner text-center">
+              <div class="col-sm-2 boxes text-center">
                 <h2> users</h2>
                 <p> number of users</p>  
               </div>
-              <div class="col-sm-1"></div>
               
-              <div class="col-sm-2 heading-banner text-center">
+              
+              <div class="col-sm-2 boxes text-center">
                 <h2> publishers</h2>
                 <p> number of publisher</p>
               </div>
-              <div class="col-sm-1"></div>
+             
+              
+              
 
 
                     
@@ -81,44 +93,52 @@
       </div>
 <br/>
 <!-- ends here stats section -->
-<div class="col-sm-12 heading-banner" >
-  <h2 > Search books by category</h2>
+<div class="col-sm-12 " >
+  <div class="row"> 
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <h2 class="heading-banner text-center"> Search Books by Category</h2>
+    </div>
+    <div class="col-sm-4"></div>
+ 
+  </div>
+  
 </div> 
 
-      <div class="col-sm-12 text-center">
+      <div class="container text-center">
         <div class="row">
 
-              <div class="col-sm-1"> </div>
-              <div class="col-sm-1 heading-banner " >
+         
+              <div class="col-sm-1 boxes" style="margin-left:5%" >
               <h1 class="text-center">C</h1>
               <b>Study</b>  
               </div>
     
               <div class="col-sm-1"></div>
-              <div class="col-sm-1 heading-banner">
+              <div class="col-sm-1 boxes">
                 <h1 class="text-center">C</h1>
               <b>Study</b> 
               </div>
     
               <div class="col-sm-1"></div>
-              <div class="col-sm-1 heading-banner">
+              <div class="col-sm-1 boxes">
                 <h1 class="text-center">C</h1>
               <b>Study</b> 
               </div>
     
               <div class="col-sm-1"> </div>
-              <div class="col-sm-1 heading-banner">
+              <div class="col-sm-1 boxes">
                 <h1 class="text-center">C</h1>
               <b>Study</b> 
               </div>
               <div class="col-sm-1"> </div>
-              <div class="col-sm-1 heading-banner">
+              <div class="col-sm-1 boxes">
                 <h1 class="text-center">C</h1>
               <b>Study</b> 
               </div>
 
               <div class="col-sm-1"> </div>
-              <div class="col-sm-1 heading-banner " >
+              <div class="col-sm-1 boxes " >
               <h1 class="text-center">C</h1>
               <b>Study</b>  
               </div>
@@ -127,8 +147,16 @@
         </div>
       </div>
 <br/>
-<div class="col-sm-12 heading-banner" >
-  <h2 > popular books</h2>
+<div class="col-sm-12" >
+  <div class="row"> 
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <h2 class="heading-banner text-center"> Popular Books</h2>
+    </div>
+    <div class="col-sm-4"></div>
+ 
+  </div>
+  
 </div>
 <br/>
 <div class="col-sm-12" >
@@ -137,7 +165,7 @@
           {% for i in book %}
           
            <div class="col-sm-2 boxes text-center">
-            <img  src="{{ i[8] }}"/>
+            <img src="{{ i[8] }}"/>
             <p> 
              
             <b>{{ i[1] }} </b> 
@@ -147,6 +175,7 @@
             </p>
            
            </div>
+           <div class="col-sm-1"></div>
            {% endfor %}
         </div>
       
@@ -155,8 +184,15 @@
        <br/>
 
     <br/>
-    <div class="col-sm-12 heading-banner">
-      <h2 > More books</h2>
+    <div class="col-sm-12 ">
+      <div class="row"> 
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+          <h2 class="heading-banner text-center"> More Books</h2>
+        </div>
+        <div class="col-sm-4"></div>
+     
+      </div>
   </div>
     <div class="col-sm-12" >
     
