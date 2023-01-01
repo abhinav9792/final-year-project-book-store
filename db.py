@@ -2,7 +2,7 @@
 from sqlalchemy import create_engine,and_
 import sqlalchemy
 from sqlalchemy import MetaData
-from sqlalchemy import Table, Column, Integer, String, MetaData,DateTime
+from sqlalchemy import Table, Column, Integer, String, MetaData,DateTime,VARCHAR
 
 
 
@@ -47,13 +47,15 @@ Upload_book =Table(
 )
 meta.create_all(engine)
 
+
 User_upload_book=Table(
     "User_upload_book",meta,
     Column("id",Integer,primary_key=True,autoincrement=True),
     Column("b_id",Integer),
     Column("name_of_book",String),
+    Column("name_of_author",String),
+    Column("file",String),
     Column("added_by",String),
-    Column("date",DateTime),
-
+    Column("date",DateTime)
 )
 meta.create_all(engine)

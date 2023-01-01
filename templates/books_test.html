@@ -1,87 +1,120 @@
-{% extends "admin_panel_template.html" %}
-{% block body %}
-<!-- table starts here -->
-<br/>
-<br/>
-<div class="col-sm-12 box-heading">
-  <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-5  text-center">
-      <h3><b></b> Uploaded Books</b> </h3>
-    </div>
-    <div class="col-sm-4"></div>
-  </div>
-</div>
-<br/>
+<html>
+  <head>
 
-<div class="form-outline mb-4">
-    <input type="search" class="form-control" id="datatable-search-input">
-    <label class="form-label" for="datatable-search-input">Search</label>
-  </div>
-  <div id="datatable">
-
-   
-
-    <div class="col-sm-12 ">    
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     
-          
-          <table class="table box-heading overflow-auto" style="height:300px;">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col"><b> book id</b></th>
-                <th scope="col"><b>name of book</b></th>
-                <th scope="col"><B>name of author</B></th>
-                <th scope="col"><b>category</b></th>
-                <th scope="col"><b>publisher</b></th>
-                <th scope="col"><b>isbn number</b></th>
-                <th scope="col"><b>file</b></th>
-                <th scope="col"><b>Operation</b></th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for i in books %}
-              <tr>
-                <th scope="row">{{ i[0] }}</th>
-                <td> {{ i[1] }} </td>
-                <td> {{ i[2] }} </td>
-                <td> {{ i[3] }} </td>
-                <td> {{ i[4] }} </td>
-                <td> {{ i[5] }} </td>
-                <td> {{ i[5] }} </td>
-               <td> <i class="fa-sharp fa-solid fa-trash-can" style="font-size:30px; margin:5%;"></i>  
-                <i class="fa-sharp fa-solid fa-person-booth" style="font-size:30px; margin:5%;"></i> </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <title> profile page[user]</title>
+        <style>
+                  </style>
+        <link rel="stylesheet" href="{{url_for('static',filename='a-color.css')}}">
+         <script src="https://kit.fontawesome.com/907fc64514.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+     
+
+<div
+  id="sidenav-3"
+  data-mdb-close-on-esc="false"
+  class="sidenav"
+  data-mdb-hidden="false"
+  data-mdb-position="absolute"
+  data-mdb-focus-trap="false"
+  data-mdb-scroll-container="#scroll-container"
+  role="navigation"
+>
+  <div class="text-center">
+    <h3 class="py-4">Examples</h3>
+    <hr class="m-0" />
+  </div>
+  <ul id="scroll-container" class="sidenav-menu">
+    <li class="sidenav-item">
+      <div class="input-group rounded my-2">
+        <div class="form-outline w-auto">
+          <input id="search-input-sidenav" type="search" id="form1" class="form-control" />
+          <label class="form-label" for="form1">Search</label>
+        </div>
+      </div>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link">
+        <i class="far fa-smile pe-3"></i><span>lorem</span>
+      </a>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link">
+        <i class="far fa-smile pe-3"></i><span>Link 2</span>
+      </a>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link">
+        <i class="far fa-smile pe-3"></i><span>Link 3</span>
+      </a>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link">
+        <i class="far fa-smile pe-3"></i><span>Link 4</span>
+      </a>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link">
+        <i class="far fa-smile pe-3"></i><span>Link 5</span>
+      </a>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link">
+        <i class="far fa-smile pe-3"></i><span>Link 6</span>
+      </a>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link">
+        <i class="far fa-smile pe-3"></i><span>Link 7</span>
+      </a>
+    </li>
+    <li class="sidenav-item">
+      <a class="sidenav-link">
+        <i class="far fa-smile pe-3"></i><span>Link 8</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="text-center" style="min-height: 3rem;">
+    <hr class="mt-0 mb-2" />
+    <small>mdbootstrap.com</small>
+  </div>
 </div>
-</div>
 
-
-
-<br/>
-<br/>
+<!-- Sidenav-->
 <script>
-    const data2 = {
-  columns: ["name of book","name of author","category","publisher","isbn number","file""Operation"],
-  rows: [
-    ['Tiger Nixon', 'System Architect', '	Edinburgh', 61, '2011/04/25', '$320,800'],
-    ['Sonya Frost', 'Software Engineer', 'Edinburgh', 23, '2008/12/13', '$103,600'],
-    ['Jena Gaines', 'Office Manager', 'London', 30, '2008/12/19', '$90,560'],
-    ['Quinn Flynn', 'Support Lead', 'Edinburgh', 22, '2013/03/03', '$342,000'],
-    ['Charde Marshall', 'Regional Director', 'San Francisco', 36, '2008/10/16', '$470,600'],
-    ['Haley Kennedy', 'Senior Marketing Designer', 'London', 43, '2012/12/18', '$313,500'],
-    ['Tatyana Fitzpatrick', 'Regional Director', 'London', 19, '2010/03/17', '$385,750'],
-    ['Michael Silva', 'Marketing Designer', 'London', 66, '2012/11/27', '$198,500'],
-    ['Paul Byrd', 'Chief Financial Officer (CFO)', 'New York', 64, '2010/06/09', '$725,000'],
-    ['Gloria Little', 'Systems Administrator', 'New York', 59, '2009/04/10', '$237,500'],
-  ],
-};
+  const searchInputSidenav = document.getElementById('search-input-sidenav');
+const sidenavOptions = document.querySelectorAll('#sidenav-3 li .sidenav-link');
 
-const instance = new mdb.Datatable(document.getElementById('datatable'), data2)
+searchInputSidenav.addEventListener('input', () => {
+  const filter = searchInputSidenav.value.toLowerCase();
+  showSidenavOptions();
+  const valueExist = !!filter.length;
 
-document.getElementById('datatable-search-input').addEventListener('input', (e) => {
-  instance.input-group(e.target.value);
+  if (valueExist) {
+    sidenavOptions.forEach((el) => {
+      const elText = el.textContent.trim().toLowerCase();
+      const isIncluded = elText.includes(filter);
+      if (!isIncluded) {
+        el.style.display = 'none';
+      }
+    });
+  }
 });
+
+const showSidenavOptions = () => {
+  sidenavOptions.forEach((el) => {
+    el.style.display = 'flex';
+  });
+};
 </script>
-{% endblock %}
+</body>
+</html>

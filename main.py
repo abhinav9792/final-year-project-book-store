@@ -111,13 +111,48 @@ def login_next():
             for i in login:
                 print(i)
             data=i
-            
-            session["value"] = data[1]
+            print(data[1])
+            session["value"] = data[0]
             log=data
            
             return render_template("profile page for user.html",log=log)
         else: return "wrong login information"
     else:return render_template("sign_in.html")
+
+
+@app.route("/book_user",methods=["GET","POST"])
+def book_user():
+    if "value" in session:
+        sess= session['value'] 
+        print("----->>>session value",sess)
+        if request.method =="POST":
+            book_name=request.form["book_name"]
+            author=request.form["author"]
+            book=request.form["book"]
+           
+            file= request.files["book"]
+            a= secure_filename(file.filename)
+            #this function is testing for file is pdf or not ??
+            a= file_upload_pdf_test(a)
+            file.save("static/books/"+a)
+            type = request.form["type"]
+
+                #implement here
+            b=add_image(a,book_name)
+            image=reduce_image(b)
+            
+            print("BOOK NAME ------>>>>",book_name,author,book,type)
+
+                #database uploading goes here--
+            u_book= User_upload_book.insert().values(b_id=sess,name_of_book=book_name,name_of_author=author,upload_book="static/books/"+a,type=type,images=image,added_by=sess[1])
+
+            u_book.compile().params
+            conn = engine.connect()
+            conn.execute(u_book)
+            
+            return "<h1>success</h1>"
+        else: return "<h1>not uploaded</h1>"
+    else : return "<h1> please login </h1>"
 
 @app.route("/about")
 def about_us():
@@ -279,6 +314,13 @@ def general_settings():
         return render_template("general_settings.html",sess=sess)
     else: return "please login"
 
+@app.route("/performance")
+def performance():
+    if "value" in session:
+        sess=session["value"]
+        return render_template("chart.html",sess=sess)
+    else:return "please login"
+
 # ------------------>need some work <<<<<<<<<<<---------
 @app.route("/book_test")
 def book_test():
@@ -289,7 +331,6 @@ def book_test():
         result= conn.execute(books)
         rows= result.fetchall()
         return render_template("books_test.html",books=rows,sess=sess)
-
 
 
         

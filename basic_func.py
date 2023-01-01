@@ -54,6 +54,6 @@ def datetimes():
 #5. change the size of image
 def reduce_image(b):
     image = Image.open("static/book_img/"+b)
-    new_image = image.resize((100,100))
+    new_image = image.resize((400,200))
     new_image.save( "static/book_img/"+b)
     return "static/book_img/"+b
