@@ -23,6 +23,7 @@ Contact=Table(
     )
 meta.create_all(engine)
 
+#add unique id for each user or because right now id is used in client side session which means this id can be accessed by7 any user also id is a primary key which may cause potential harm
 Register =Table(
     "Register",meta,
     Column("Id",Integer,primary_key=True,autoincrement=True),
@@ -55,7 +56,8 @@ User_upload_book=Table(
     Column("name_of_book",String),
     Column("name_of_author",String),
     Column("file",String),
-    Column("added_by",String),
-    Column("date",DateTime)
+    Column("images",String),
+    Column("date",String),
+    Column("type",String)
 )
 meta.create_all(engine)

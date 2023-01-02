@@ -7,7 +7,7 @@ from sqlalchemy import delete
 
 
 #self created library
-from basic_func import file_upload_pdf_test,add_image,reduce_image
+from basic_func import file_upload_pdf_test,add_image,reduce_image,datetimes
 
 f= open("templates//data.json","r")
 s= f.read()
@@ -128,7 +128,6 @@ def book_user():
         if request.method =="POST":
             book_name=request.form["book_name"]
             author=request.form["author"]
-            book=request.form["book"]
            
             file= request.files["book"]
             a= secure_filename(file.filename)
@@ -140,18 +139,19 @@ def book_user():
                 #implement here
             b=add_image(a,book_name)
             image=reduce_image(b)
+            time=datetimes()
             
-            print("BOOK NAME ------>>>>",book_name,author,book,type)
+            print(f"BOOK NAME ------>>>>name",{book_name},"author",{author},"type",{type},"image",{image},"pdf type",{a},"date",{time})
 
                 #database uploading goes here--
-            u_book= User_upload_book.insert().values(b_id=sess,name_of_book=book_name,name_of_author=author,upload_book="static/books/"+a,type=type,images=image,added_by=sess[1])
+            u_book= User_upload_book.insert().values(b_id=sess,name_of_book=book_name,name_of_author=author,file="static/books/"+a,type=type,images=image,date=time)
 
             u_book.compile().params
             conn = engine.connect()
             conn.execute(u_book)
             
-            return "<h1>success</h1>"
-        else: return "<h1>not uploaded</h1>"
+            return "<h1> success </h1>"
+        else: return "<h1> abc not uploaded</h1>"
     else : return "<h1> please login </h1>"
 
 @app.route("/about")

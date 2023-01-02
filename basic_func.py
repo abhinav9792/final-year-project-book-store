@@ -48,7 +48,7 @@ def add_image(book,name):
 # $. get current date time 
 def datetimes():
     now = datetime.now()
-    cur_time = now.strftime("%d/%m/%Y %H:%M:%S")
+    cur_time =now.strftime("%d/%m/%Y %H:%M:%S")
     return cur_time
 
 #5. change the size of image
@@ -57,3 +57,5 @@ def reduce_image(b):
     new_image = image.resize((400,200))
     new_image.save( "static/book_img/"+b)
     return "static/book_img/"+b
+
+print(datetimes())
