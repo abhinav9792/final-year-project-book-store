@@ -1,4 +1,3 @@
-
 .heading-banner{
     /*best color  #344D67 */
     /* other color code decide
@@ -7,24 +6,24 @@
     3.006E7F
     4. 151D3B
     5. 464660
-    6. 614124 
-    7.  #361500 previous color
+    6. 614124
+    7.  #361500
     */
-    background-color:#344D67;
+    background-color:  #361500;
     color:#FFF1F1;
 }
 /*about us page*/
 .about_boxes_main{
-    background-color: #344D67;
+    background-color: #361500;
 }
 .about_boxes_text{
-    background-color:#344d67d0;
+    background-color:#665A48;
     color:#FFF1F1;
 }
 
 /* home page css*/
 .category_box{
-    border:15px solid #344D67;
+    border:15px solid #361500;
 }
 
 html, body {
@@ -40,26 +39,4 @@ flex: 1;
 height: 1px;
 background: #eee;
 }
-
-/*for user sign in page */
-
-.heading-banner2{
-    /*best color  #344D67 */
-    /* other color code decide
-    1. #2B3467
-    2.E14D2A
-    3.006E7F
-    4. 151D3B
-    5. 464660
-    6. 614124
-    7.  #361500
-    */
-    background-color:  #2B3467;
-    color:#FFF1F1;
-}
-
-/* profile page */
-.boxes{
-    background-color: #9EA1D4;
-    color:black;
-}
+  

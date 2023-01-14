@@ -54,8 +54,25 @@ def datetimes():
 #5. change the size of image
 def reduce_image(b):
     image = Image.open("static/book_img/"+b)
-    new_image = image.resize((400,200))
+    new_image = image.resize((400,500))
     new_image.save( "static/book_img/"+b)
     return "static/book_img/"+b
 
 print(datetimes())
+
+# def get_img(file):
+#     pdf_file = fitz.open(file)
+#     for page_index in range(len(pdf_file)):
+#     # get the page itself
+#         page = pdf_file[page_index]
+#         # get image list
+#         image_list = page.get_images()
+#         # printing number of images found in this page
+#         if image_list:
+#             print(f"[+] Found a total of {len(image_list)} images in page {page_index}")
+#             pg_index=page_index
+#             print(pg_index)
+        
+            
+# file = "ab.pdf"
+# get_img(file)
