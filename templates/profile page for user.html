@@ -1,0 +1,269 @@
+{% extends "general_templates.html" %}
+{% block title%} user login page {% endblock %}
+{% block body %} 
+<br/>
+<br/>
+<br/>
+        <div class="md-auto " >
+            <div class="row ">
+                <div class="col-sm-3 heading-banner text-center " >
+                    <h3 class="container-fluid boxes about_boxes_main"> {{ log[1] }}</h3>
+                    <div class="col-sm-12" >
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6 about_boxes_main" >
+                                <h2>profile will appear here 
+        
+                                       </h2>
+                                </div>
+                                <hr/>
+                            <div class="col-sm-3"></div>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="col-sm-12" >
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10 about_boxes_main">
+                            
+                                <h4>
+                                    user profile setting
+                                </h4>
+                           
+                                </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                    
+                        <br/>
+                    <div class="col-sm-12" >
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10 about_boxes_main">
+
+                                <button type="button" class="btn bg-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                                    <h5>   Update profile </h5></button>
+
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <label>Name</label>
+                                                <input type="text" name="name" placeholder= "{{ log[1] }}" />
+                                                <br/>
+                                                <br/>
+                                                <label>Email</label>
+                                                <input type="Email" name="name" placeholder= "{{ log[2] }}" />
+                                                <br/>
+                                                <br/>
+                                                <label>Password</label>
+                                                <input type="Password" name="name" placeholder= "{{ log[3] }}" />
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <input type="submit" class="btn-primary"/>
+                                               </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-primary">Send message</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>  
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div class="col-sm-12" >
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10 about_boxes_main">
+                                <h4>
+                                    user profile setting
+                                </h4>
+                                </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div class="col-sm-12" >
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10 about_boxes_main">
+                                <h4>
+                                    Read your books
+                                </h4>
+                                </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div class="col-sm-12" >
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10 about_boxes_main">
+                                <h4>
+                                    Manage books
+                                </h4>
+                                </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+
+                    <br/>
+                </div>
+                                <div class="col-sm-9 text-center" >
+                                    <div class="col-sm-12">
+                                        <h1 class="heading-banner "> Welcome to your DashBoard </h1>  
+                                        <!-- chnage [reduce] the size of image -->
+                                        <img src="{{url_for('static',filename='pro_banner.jpg')}}" class="img-fluid" alt="...">
+                                    </div>
+                                  <hr/> 
+                                    <div class="col-sm-10" >
+                                        <div class="row" >
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3 boxes" style="margin:1%;">
+                                                <h1> {{ u_stats[0] }}</h1>
+                                                <h4>
+                                                number of books
+                                                </h4>
+                                            </div>
+                                            <div class="col-sm-3 boxes" style="margin:1%;">
+                                                <h1> 12</h1>
+                                                <h4>
+                                                number of books
+                                                </h4>
+                                            </div>
+                                            <div class="col-sm-3 boxes" style="margin:1%;">
+                                                <h1> 12</h1>
+                                                <h4>
+                                                number of books
+                                                </h4>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                        </div>
+                                    </div>    
+                                    <br/>
+                                <!-- your books section -->
+                               
+                                    <div class="col-sm-12"> 
+                                        
+                                        <div class="row">  
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-10 " >
+                                            <div class="col-sm-12 boxes "> <h3> Your Details   </h3></div>
+                                            <div class="col-sm-12 boxes"> 
+                                                <p>
+                                                    <b> Your ID :</b> {{ log[0]}} <br/>
+                                                   <b> Your Name :</b> {{ log[1]}} <br/>
+                                                   <b> Your Email :</b> {{ log[2]}}<br/>
+                                                   <b> Your Password :</b> {{ log[3]}} <br/>
+                                                </p>
+                                            </div>
+                                            </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    </div>
+                                    <!-- your book section-->
+                                     <!-- your uploaded books  -->
+                               <br/>
+                                     <div class="col-sm-12"> 
+                                        
+                                        <div class="row">  
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-10">
+                                            <div class="col-sm-12 boxes"> <h3> Upload you book and start reading   </h3>
+                                            </div>
+                                            <div class="container boxes">
+                                            <div class="row"> 
+                                                <form action="/book_user" method="POST" enctype = "multipart/form-data">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                          <label for="formFile" class="form-label">Name of book</label>  
+                                                          
+                                                          <input type="text" class="form-control" placeholder="Name" name="book_name">
+                                                        </div>
+                                                        <div class="col">
+                                                          <label for="formFile" class="form-label">Name of author</label> 
+                                                          <input type="text" class="form-control" placeholder="Last name" name="author">
+                                                        </div>
+                                                       <div class="row">
+                                                          <div class="col">
+                                                              <label for="formFile" class="form-label">Default file input example</label>
+                                                              <input class="form-control" type="file" id="formFile" name="book">
+                                                            </div>
+                                                            <div class="col">
+                                                              <label for="formFile" class="form-label">Type of file</label>
+                                                              <select class="form-select" aria-label="Default select example" name ="type">
+                                                                  <option selected> Open this select menu</option>
+                                                                  <option>pdf</option>
+                                                                  <option>epub</option>
+                                                                  <option>doc</option>
+                                                                </select>
+                                                            </div>
+                                                       </div>
+                                                      </div>
+                                                      <br/>
+                                                      <input class="btn-primary" type="submit" value="press this to submit the file"/>
+                                                    </form>
+                                            </div>
+                                            </div>
+                                          
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    </div>
+                                    <!-- your book section-->
+                                    <br/>
+                                 <!-- your books for selling/donation section -->
+                               <br/>
+                                 <div class="col-sm-12"> 
+                                        
+                                    <div class="row">  
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-10 ">
+                                        <div class="col-sm-12 boxes"> <h3> Your Book Shelf   </h3></div>
+                                        <div class="container-fluid"> 
+                                            <div class="row">
+                                                {% for i in book_list %}
+                                        
+                                                <div class="col-sm-2 about_boxes_main ">
+                                                    <img class="img-fluid" src="{{ i[5] }}"/>
+                                                    <b class="text-break"> {{ i[2] }} </b>
+                                                    <p>{{ i[3] }} <br/>
+                                                    <input type="button" class="btn-success btn-sm" value="continue reading"/>
+                                                </p>
+                                                
+                                                </div>
+                                                   
+                                                <div class="col-sm-1"> </div>
+                                                
+                                                {% endfor %}
+                                            </div>
+                                            <br/>
+
+                                        </div>
+                                        </div>
+                                    <div class="col-sm-1"></div>
+                                </div>
+                                </div>
+                                <!-- your book section-->
+                                </div>
+
+            </div>
+           
+        </div>
+        <br/>
+        {% endblock %}

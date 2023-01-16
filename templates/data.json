@@ -1,0 +1,38 @@
+{
+    "super-secret-key": "192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf",
+    
+    "abhinav9001@kg.com":
+    {
+        "u_name":"abhinav9001@kg.com",
+        "name":"abhinav srivastava",
+        "p_word":"2001620109001",
+        "filename":"abhinav.jpg"
+
+    },
+    "arsalan9003@kg.com":
+    {
+        "u_name":"arsalan9003@kg.com",
+        "name":"Arsalan Gouhar",
+        "p_word":"2001620109003",
+        "filename":"arsalan.jpg"
+
+    },
+    "akhilesh9002@kg.com":
+    {
+        "u_name":"akhilesh9002@kg.com",
+        "name":"Akhilesh Yadav",
+        "p_word":"2001620109002",
+        "filename":"akhilesh.jpg"
+    },
+    "rahul9010@kg.com":
+    {
+        "u_name": "rahul9010@kg.com",
+        "name":"Rahul Kumar",
+        "p_word":"2001620109010",
+        "filename":"rahul.jpg"
+    }
+    
+   
+    
+ 
+}
