@@ -185,15 +185,16 @@ def privacy_ploicy():
 def terms_and_condition():
     return render_template("tc.html")
 
-@app.route("/book_info/<path:book_name>")
+@app.route("/book_info/<path:book_name>",methods=["GET","POST"])
 def book_info(book_name):
-    conn = engine.connect()
-    shows = Upload_book.select().where(Upload_book.c.name_of_book == book_name)
-    result =conn.execute(shows)
-    res= result.fetchone()
-    for i in res:
-        print("---->>>your res--",i)
-    return render_template("book_info.html",res=res)
+    if request.method=="GET":
+        conn = engine.connect()
+        shows = Upload_book.select().where(Upload_book.c.name_of_book == book_name)
+        result =conn.execute(shows)
+        res= result.fetchone()
+        for i in res:
+            print("---->>>your res--",i)
+        return render_template("book_info.html",res=res)
 
 
 
@@ -204,7 +205,19 @@ def book_cateogry():
 #---------->>>>>>OPEN PDF SECTION<<<<----------------------#
 @app.route("/pdf")
 def open_pdf():
-    return render_template("open_pdf.html")
+    name="ikigai"
+    conn =engine.connect()
+    book_data= Upload_book.select().where(Upload_book.c.name_of_book == name)
+    result =conn.execute(book_data)
+    res= result.fetchone()
+    print(res[6])
+    pdf2=res[6]
+    pdf =pdf2[13:]
+    return render_template("open_pdf.html",pdf=pdf,pdf_info=res)
+
+@app.route("/pdf2")
+def open_pdf2():
+    return render_template("i2.html")
     
 #--------------------------------------------------------------------------------------#
 #---------------------->>>>>>>>ADMIN ZONE<<<<<<<<<<<<<<<------------------------------#

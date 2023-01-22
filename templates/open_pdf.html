@@ -1,12 +1,13 @@
 {% extends "general_templates.html" %}
 {% block body %}
 <br/>
-
+<br/>
+<br/>
 <div class="col-sm-12">
         <div class="row"> 
         <div class="col-sm-4"></div>
         <div class="col-sm-4 boxes">
-            <h2> pdf name will appear here </h2>
+            <h2 class="text-center"> {{ pdf_info[1] }} </h2>
 
         </div>
         <div class="col-sm-4"></div>
@@ -15,33 +16,148 @@
 </div>
 <br/>
 <div class="col-sm-12 boxes text-center">
-    <h3> options to mark on pdf will appear here</h3>
+    <h3> options to mark on pdf will appear here <br/>
+        
+    </h3>
 
 </div>
 <div class="col-sm-12">
     <div class="row">
-        <div class="col-sm-8">
-            <embed src=
-            "https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210101201653/PDF.pdf" 
-                           width="800"
-                           height="500">
+        <div class="col-sm-2">
+            <div class="col-sm-12 bg-primary">
+                <h3> Book Chapters</h3>        
+            </div>
+        
         </div>
-        <Div class="col-sm-4 boxes">
-            <div class="col-sm-12  text-center" style="max-height:50px;"><h3 class="heading-banner"> hello</h3> </div>
+        <div class="col-sm-7">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-1">
+                 
+                        <div id="navigation_controls">
+                            <button id="go_previous">Previous</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div  class="text-center"id="zoom_controls"> 
+                            
+                            <button id="zoom_in">+ INCREASE </button>
+                            <button id="zoom_out">- DECREASE</button>
+                        </div>
+                        <br/>
+                        
+                        <div class="text-center" id="navigation_controls" >
+                        <input  id="current_page" value="1" type="number"/>
+                        </div>
+                        <div id="my_pdf_viewer" style="max-height: 500px; min-width:700px; overflow-y: scroll;">
+                            <div id="canvas_container">
+                                <canvas id="pdf_renderer"></canvas>
+                            </div>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-1">
+                    <div id="navigation_controls mb-5">
+                        <button id="go_next">Next</button>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+        <Div class="col-sm-3 boxes">
+           
+                <h3 class="heading-banner"> hello</h3> 
         </Div>
     </div>
- 
+    <br/>
+        <!-- <embed src="{{ url_for('static',filename= pdf )}}" type=""> -->
 </div>
-<div class="col-sm-12">
-    <div class="row">
-        <div class="col-sm-8">
-  
-        </div>
-        <Div class="col-sm-4 boxes">
-            <div class="col-sm-12  text-center" ><h3 class="heading-banner"> hello</h3> </div>
-        <h5>lorem</h5>
-        </Div>
-    </div>
- 
 </div>
+<!---->
+<script>
+
+    let name= "{{ pdf }}"
+    console.log(name)
+    var myState = {
+        pdf: null,
+        currentPage: 1,
+        zoom: 1.5
+    }
+    pdfjsLib.getDocument('{{ url_for("static",filename= pdf) }}').then((pdf) => {
+ 
+        myState.pdf = pdf;
+        render();
+    });
+    function render() {
+        myState.pdf.getPage(myState.currentPage).then((page) => {
+     
+            var canvas = document.getElementById("pdf_renderer");
+            var ctx = canvas.getContext('2d');
+ 
+            var viewport = page.getViewport(myState.zoom);
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+     
+            page.render({
+                canvasContext: ctx,
+                viewport: viewport
+            });
+        });
+    }
+
+    document.getElementById('go_previous')
+.addEventListener('click', (e) => {
+if(myState.pdf == null|| myState.currentPage == 1) 
+return;
+   
+myState.currentPage -= 1;
+document.getElementById("current_page").value = myState.currentPage;
+render();
+});
+
+document.getElementById('go_next')
+.addEventListener('click', (e) => {
+if(myState.pdf == null || myState.currentPage > myState.pdf._pdfInfo.numPages) 
+return;
+     
+myState.currentPage += 1;
+document.getElementById("current_page").value = myState.currentPage;
+render();
+});
+
+document.getElementById('current_page')
+.addEventListener('keypress', (e) => {
+if(myState.pdf == null) return;
+
+// Get key code
+var code = (e.keyCode ? e.keyCode : e.which);
+
+// If key code matches that of the Enter key
+if(code == 13) {
+    var desiredPage = document.getElementById('current_page').valueAsNumber;
+                     
+    if(desiredPage >= 1 && desiredPage <= myState.pdf._pdfInfo.numPages) {
+        myState.currentPage = desiredPage;
+        document.getElementById("current_page").value = desiredPage;
+        render();
+    }
+}
+});
+
+document.getElementById('zoom_in')
+.addEventListener('click', (e) => {
+if(myState.pdf == null) return;
+myState.zoom += 0.5;
+render();
+});
+
+document.getElementById('zoom_out')
+.addEventListener('click', (e) => {
+if(myState.pdf == null) return;
+myState.zoom -= 0.5;
+
+render();
+});
+</script>
+
 {% endblock %}

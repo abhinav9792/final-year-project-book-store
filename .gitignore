@@ -1,3 +1,6 @@
 __pycache__/
 .vscode/
 files/
+static/book_img/
+static/books/
+test/
