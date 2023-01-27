@@ -5,7 +5,6 @@ import json
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import delete
 
-
 #self created library
 from basic_func import file_upload_pdf_test,add_image,reduce_image,datetimes,get_img
 
