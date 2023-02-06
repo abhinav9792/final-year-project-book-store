@@ -92,6 +92,18 @@ def get_img(file,name):
                 break
             break
         break
-# file="Cisco_CCNA_Lab_Guide_v200-301c.pdf"
+
+#get the book chapter
+def book_chapter(book):
+    pdf = fitz.open("static/books/"+ book)
+    chap=[]
+    for i in range(len(pdf.get_toc())):
+        chap.append(pdf.get_toc()[i])
+    return chap
+
+
+
+
+
 # name="cisco"
 # get_img(file,name)

@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import delete
 
 #self created library
-from basic_func import file_upload_pdf_test,add_image,reduce_image,datetimes,get_img
+from basic_func import file_upload_pdf_test,add_image,reduce_image,datetimes,get_img,book_chapter
 
 f= open("templates//data.json","r")
 s= f.read()
@@ -212,11 +212,25 @@ def open_pdf():
     print(res[6])
     pdf2=res[6]
     pdf =pdf2[13:]
-    return render_template("open_pdf.html",pdf=pdf,pdf_info=res)
+    b_chapter=book_chapter(pdf)
+    return render_template("open_pdf.html",pdf=pdf,pdf_info=res,b_chapter=b_chapter)
+
+# @app.route("/pdf2")
+# def open_pdf2():
+#     return render_template("test_pdf.html")
 
 @app.route("/pdf2")
 def open_pdf2():
-    return render_template("i2.html")
+    name="ikigai"
+    conn =engine.connect()
+    book_data= Upload_book.select().where(Upload_book.c.name_of_book == name)
+    result =conn.execute(book_data)
+    res= result.fetchone()
+    print(res[6])
+    pdf2=res[6]
+    pdf =pdf2[13:]
+    b_chapter=book_chapter(pdf)
+    return render_template("test_pdf.html",pdf=pdf,pdf_info=res,b_chapter=b_chapter)
     
 #--------------------------------------------------------------------------------------#
 #---------------------->>>>>>>>ADMIN ZONE<<<<<<<<<<<<<<<------------------------------#

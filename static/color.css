@@ -10,7 +10,7 @@
     7.  #361500
     
     */
-    background-color:  #03C988;
+    background-color:#404B69;
     color:#FFF1F1;
 }
 /*about us page*/
@@ -18,7 +18,8 @@
     background-color: #ADE792;
 }
 .boxes{
-    background-color: #ADE792;
+    background-color: #00818A;
+    color:#DBEDF3;
 }
 .about_boxes_text{
     background-color:#1e5505; 
@@ -31,6 +32,7 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    background-color: #283149;
   }
 
 /*sign in page*/
