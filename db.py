@@ -61,3 +61,12 @@ User_upload_book=Table(
     Column("type",String)
 )
 meta.create_all(engine)
+
+archive_book=Table(
+    "archive_book",meta,
+    Column("id",Integer,primary_key=True,autoincrement=True),
+    Column("b_id",Integer),
+    Column("name_of_book",String),
+    Column("file",String),
+)
+meta.create_all(engine)

@@ -1,158 +1,244 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<script src="//mozilla.github.io/pdf.js/build/pdf.js" crossorigin="anonymous"></script>
-<link href="//mozilla.github.io/pdf.js/web/viewer.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
+{% extends "general_templates.html" %}
+{% block body %}
+<br/>
+<br/>
+<br/>
+<div class="col-sm-12">
+        <div class="row"> 
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4 boxes">
+            <h2 class="text-center"> {{ pdf_info[1] }} </h2>
 
-#the-canvas {
-  border: 1px solid black;
-  direction: ltr;
-}
-
-</style>
-</head>
-
-<body>
-
-<h1>PDF.js Previous/Next example</h1>
-
-<div>
-  <button id="prev">Previous</button>
-  <button id="next">Next</button>
-  &nbsp; &nbsp;
-  <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+        </div>
+        <div class="col-sm-4"></div>
 </div>
 
-<h1> {{ pdf }} </h1> 
+</div>
+<br/>
+<div class="col-sm-12 boxes text-center">
+    <h3> options to mark on pdf will appear here <br/>
+        
+    </h3>
 
-<canvas id="the-canvas"></canvas>
-<div class="textLayer"></div>
+</div>
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="col-sm-12 bg-primary" style="max-height: 500px; min-width:250px; overflow-y: scroll;">
+                <h3> Book Chapters</h3>    
+                
 
+                {% for i in range(b_chapter.__len__()) %}
+                <b>  {{ b_chapter[i][1] }} </b> <br/> <br/>
+                {% endfor %}   
+                <!-- {% for i in b_chapter %}
+                {{ b_chapter[i] }}
+                {% endfor %} -->
+            </div>
+        
+        </div>
+        
+        <div class="col-sm-7">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-1">
+                 
+                        <div id="navigation_controls">
+                            <button id="go_previous">Previous</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div  class="text-center"id="zoom_controls"> 
+                            
+                            <button id="zoom_in">+ INCREASE </button>
+                            <button id="zoom_out">- DECREASE</button>
+                        </div>
+                        <br/>
+                        
+                        <div class="text-center" id="navigation_controls" >
+                        <input  id="current_page" value="1" type="number"/>
+                        </div>
+                        <div id="my_pdf_viewer" style="max-height: 500px; min-width:700px; overflow-y: scroll;">
+                            <div id="canvas_container">
+                                <canvas id="pdf_renderer">
+                                  <div id="text-layer"> </div>
+                           
+                                </canvas>
+                                      
+                               
+
+                            </div>
+                            
+                    </div>
+                    
+                    
+                </div>
+                <div class="col-sm-1">
+                    <div id="navigation_controls mb-5">
+                        <button id="go_next">Next</button>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+        <Div class="col-sm-3 boxes">
+           
+                <h3 class="heading-banner"> hello</h3> 
+        </Div>
+    </div>
+    
+    <br/>
+        <!-- <embed src="{{ url_for('static',filename= pdf )}}" type=""> -->
+</div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  <!-- Scrollable modal -->
+<div class="modal-dialog modal-dialog-scrollable">
+    <h3>Pre Process Your PDF</h3>
+    <!--  switch  -->
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+        <label class="form-check-label" for="flexSwitchCheckChecked">Switch not working inside modal[fix it]</label>
+      </div>
+      <!-- checkboxes -->
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+        <label class="form-check-label" for="flexCheckChecked">
+          Checked checkbox
+        </label>
+      </div>
+  </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!---->
 <script>
-// If absolute URL from the remote server is provided, configure the CORS
-// header on that server.
-var url = 'MACHINE LEARNING FOR DUMMIES.pdf';
 
-// Loaded via <script> tag, create shortcut to access PDF.js exports.
-var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    let name= "{{ pdf }}"
+    console.log(name)
+    var myState = {
+        pdf: null,
+        currentPage: 1,
+        zoom: 1.5
+    }
+    pdfjsLib.getDocument('{{ url_for("static",filename= pdf) }}').then((pdf) => {
+ 
+        myState.pdf = pdf;
+        render();
+    });
+    function render() {
+        myState.pdf.getPage(myState.currentPage).then((page) => {
+     
+            var canvas = document.getElementById("pdf_renderer");
+            var ctx = canvas.getContext('2d');
+ 
+            var viewport = page.getViewport(myState.zoom);
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+     
+            page.render({
+                canvasContext: ctx,
+                viewport: viewport
+            });
+            
+        });
+        
+    }
 
-// The workerSrc property shall be specified.
-pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+    document.getElementById('go_previous')
+.addEventListener('click', (e) => {
+if(myState.pdf == null|| myState.currentPage == 1) 
+return;
+   
+myState.currentPage -= 1;
+document.getElementById("current_page").value = myState.currentPage;
+render();
+});
 
-var pdfDoc = null,
-    pageNum = 1,
-    pageRendering = false,
-    pageNumPending = null,
-    //scale = 0.8,
-    scale = 1,
-    canvas = document.getElementById('the-canvas'),
-    ctx = canvas.getContext('2d');
+document.getElementById('go_next')
+.addEventListener('click', (e) => {
+if(myState.pdf == null || myState.currentPage > myState.pdf._pdfInfo.numPages) 
+return;
+     
+myState.currentPage += 1;
+document.getElementById("current_page").value = myState.currentPage;
+render();
+});
 
-/**
- * Get page info from document, resize canvas accordingly, and render page.
- * @param num Page number.
- */
-function renderPage(num) {
-  pageRendering = true;
-  // Using promise to fetch the page
-  pdfDoc.getPage(num).then(function(page) {
-    var viewport = page.getViewport({scale: scale});
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
+document.getElementById('current_page')
+.addEventListener('keypress', (e) => {
+if(myState.pdf == null) return;
 
-    // Render PDF page into canvas context
-    var renderContext = {
-      canvasContext: ctx,
-      viewport: viewport
-    };
-    var renderTask = page.render(renderContext);
+// Get key code
+var code = (e.keyCode ? e.keyCode : e.which);
 
-    // Wait for rendering to finish
-    renderTask.promise.then(function() {
-      pageRendering = false;
-      if (pageNumPending !== null) {
-        // New page rendering is pending
-        renderPage(pageNumPending);
-        pageNumPending = null;
-      }
-    }).then(function() {
-      // Returns a promise, on resolving it will return text contents of the page
-      return page.getTextContent();
-    }).then(function(textContent) {
+// If key code matches that of the Enter key
+if(code == 13) {
+    var desiredPage = document.getElementById('current_page').valueAsNumber;
+                     
+    if(desiredPage >= 1 && desiredPage <= myState.pdf._pdfInfo.numPages) {
+        myState.currentPage = desiredPage;
+        document.getElementById("current_page").value = desiredPage;
+        render();
+    }
+}
+});
 
-      // Assign CSS to the textLayer element
-      var textLayer = document.querySelector(".textLayer");
+document.getElementById('zoom_in')
+.addEventListener('click', (e) => {
+if(myState.pdf == null) return;
+myState.zoom += 0.5;
+render();
+});
 
-      textLayer.style.left = canvas.offsetLeft + 'px';
-      textLayer.style.top = canvas.offsetTop + 'px';
-      textLayer.style.height = canvas.offsetHeight + 'px';
-      textLayer.style.width = canvas.offsetWidth + 'px';
+document.getElementById('zoom_out')
+.addEventListener('click', (e) => {
+if(myState.pdf == null) return;
+myState.zoom -= 0.5;
 
-      // Pass the data to the method for rendering of text over the pdf canvas.
-      pdfjsLib.renderTextLayer({
+render();
+});
+// test
+// page is the page context of the PDF page
+// viewport is the viewport required in renderContext
+// For more see https://usefulangle.com/post/20/pdfjs-tutorial-1-preview-pdf-during-upload-wih-next-prev-buttons    
+
+page.render(renderContext).then(function() {
+    // Returns a promise, on resolving it will return text contents of the page
+    return page.getTextContent();
+}).then(function(textContent) {
+
+    // Assign CSS to the text-layer element
+    $("#text-layer").css({ left: canvas_offset.left + 'px', top: canvas_offset.top + 'px', height: canvas_height + 'px', width: canvas_width + 'px' });
+
+    // Pass the data to the method for rendering of text over the pdf canvas.
+    PDFJS.renderTextLayer({
         textContent: textContent,
-        container: textLayer,
+        container: $("#text-layer").get(0),
         viewport: viewport,
         textDivs: []
-      });
     });
-  });
-
-  // Update page counters
-  document.getElementById('page_num').textContent = num;
-}
-
-/**
- * If another page rendering in progress, waits until the rendering is
- * finised. Otherwise, executes rendering immediately.
- */
-function queueRenderPage(num) {
-  if (pageRendering) {
-    pageNumPending = num;
-  } else {
-    renderPage(num);
-  }
-}
-
-/**
- * Displays previous page.
- */
-function onPrevPage() {
-  if (pageNum <= 1) {
-    return;
-  }
-  pageNum--;
-  queueRenderPage(pageNum);
-}
-document.getElementById('prev').addEventListener('click', onPrevPage);
-
-/**
- * Displays next page.
- */
-function onNextPage() {
-  if (pageNum >= pdfDoc.numPages) {
-    return;
-  }
-  pageNum++;
-  queueRenderPage(pageNum);
-}
-document.getElementById('next').addEventListener('click', onNextPage);
-
-/**
- * Asynchronously downloads PDF.
- */
-pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-  pdfDoc = pdfDoc_;
-  document.getElementById('page_count').textContent = pdfDoc.numPages;
-
-  // Initial/first page rendering
-  renderPage(pageNum);
 });
 
 </script>
 
-</body>
-</html>
+{% endblock %}

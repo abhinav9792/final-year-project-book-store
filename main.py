@@ -4,9 +4,10 @@ from db import *
 import json
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import delete
+import os
 
 #self created library
-from basic_func import file_upload_pdf_test,add_image,reduce_image,datetimes,get_img,book_chapter
+from basic_func import *
 
 f= open("templates//data.json","r")
 s= f.read()
@@ -19,8 +20,8 @@ app.config.update(
     SECRET_KEY= data["super-secret-key"]
 )
 
-#connect to engine
-
+#checking if all the required folder exist or not
+create_folder()
 
 @app.route("/")
 def home_page():
@@ -46,7 +47,13 @@ def home_page():
     result =conn.execute(shows)
     more_books= result.fetchall()
 
-    return render_template("home2.html",book=pop_books,m_books=more_books,stats=stats)
+    #CATEGORY SEECTION
+    category_name=[]  
+    for i in (session.query(Upload_book.c.category).distinct()):
+        category_name.append(i)
+    
+
+    return render_template("home2.html",book=pop_books,m_books=more_books,stats=stats,cat=category_name)
 #--------------->>>>>>>CONTACT US<<<<<<<<<<-------------------------#
 @app.route("/contact")
 def contact_us():
@@ -231,7 +238,20 @@ def open_pdf2():
     pdf =pdf2[13:]
     b_chapter=book_chapter(pdf)
     return render_template("test_pdf.html",pdf=pdf,pdf_info=res,b_chapter=b_chapter)
+
+#------------------------ sell book section ui--------------------------------------#
+@app.route("/sell_book")
+def sell_book_page():
+    return render_template("sell_book_1.html") 
+
+@app.route("/sell_book_1" , methods=["GET","POST"])
+def sell_book_page_1():
+    if request.method == "POST":
+        book= request.files["file"]
+        f= secure_filename(book.filename)
+        return "<h1> its working </h1>"
     
+    # return render_template("sell_book_1.html") 
 #--------------------------------------------------------------------------------------#
 #---------------------->>>>>>>>ADMIN ZONE<<<<<<<<<<<<<<<------------------------------#
 #--------------------------------------------------------------------------------------#
@@ -338,10 +358,12 @@ def upload_page():
 @app.route("/books",methods=["GET","POST"])
 def books():
     if request.method == "POST":
-        id=request.form["id"]
-        a=Upload_book.delete().where(Upload_book.c.b_Id == id)
-        conn = engine.connect()
-        conn.execute(a)
+            id=request.form["id"]
+            a=Upload_book.delete().where(Upload_book.c.b_Id == id)
+            conn = engine.connect()
+            conn.execute(a)
+            conn.close()
+        
     if "value" in session:
         sess= session['value'] 
         conn =engine.connect()
@@ -376,6 +398,11 @@ def book_test():
         result= conn.execute(books)
         rows= result.fetchall()
         return render_template("books_test.html",books=rows,sess=sess)
+
+@app.route("/archive")
+def archive():
+    return "will be displayed soon"
+
 
 
         

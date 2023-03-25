@@ -1,0 +1,13 @@
+{% extends "general_templates.html" %}
+
+{% block body%}
+
+<body>
+    <h1> Sell or donate books here</h1>
+    <form method="POST"  enctype = "multipart/form-data" action="/sell_book_1" >
+        <label> Upload your pdf here</label><br/>
+        <input type="file" name="file"/>
+        <input type="Submit" placeholder="Tap when you have to upload"/>
+    </form>
+</body>
+{% endblock %}

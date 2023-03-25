@@ -99,7 +99,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js">
             zoom: 1
         }
      
-        pdfjsLib.getDocument('{{ url_for("static",filename="ab.pdf") }}').then((pdf) => {
+        pdfjsLib.getDocument('test.pdf').then((pdf) => {
      
             myState.pdf = pdf;
             render();

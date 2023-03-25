@@ -1,0 +1,211 @@
+{% extends "general_templates.html" %}
+{% block body %}
+<br/>
+<br/>
+<br/>
+<div class="col-sm-12">
+        <div class="row"> 
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4 boxes">
+            <h2 class="text-center"> {{ pdf_info[1] }} </h2>
+
+        </div>
+        <div class="col-sm-4"></div>
+</div>
+
+</div>
+<br/>
+<div class="col-sm-12 boxes text-center">
+    <h3> options to mark on pdf will appear here <br/>
+        
+    </h3>
+
+</div>
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="col-sm-12 bg-primary" style="max-height: 500px; min-width:250px; overflow-y: scroll;">
+                <h3> Book Chapters</h3>    
+                
+
+                {% for i in range(b_chapter.__len__()) %}
+                <b>  {{ b_chapter[i][1] }} </b> <br/> <br/>
+                {% endfor %}   
+                <!-- {% for i in b_chapter %}
+                {{ b_chapter[i] }}
+                {% endfor %} -->
+            </div>
+        
+        </div>
+        
+        <div class="col-sm-7">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-1">
+                 
+                        <div id="navigation_controls">
+                            <button id="go_previous">Previous</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div  class="text-center"id="zoom_controls"> 
+                            
+                            <button id="zoom_in">+ INCREASE </button>
+                            <button id="zoom_out">- DECREASE</button>
+                        </div>
+                        <br/>
+                        
+                        <div class="text-center" id="navigation_controls" >
+                        <input  id="current_page" value="1" type="number"/>
+                        </div>
+                        <div id="my_pdf_viewer" style="max-height: 500px; min-width:700px; overflow-y: scroll;">
+                            <div id="canvas_container">
+                                <canvas id="pdf_renderer"></canvas>
+                            </div>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-1">
+                    <div id="navigation_controls mb-5">
+                        <button id="go_next">Next</button>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+        <Div class="col-sm-3 boxes">
+           
+                <h3 class="heading-banner"> hello</h3> 
+        </Div>
+    </div>
+    <br/>
+        <!-- <embed src="{{ url_for('static',filename= pdf )}}" type=""> -->
+</div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  <!-- Scrollable modal -->
+<div class="modal-dialog modal-dialog-scrollable">
+    <h3>Pre Process Your PDF</h3>
+    <!--  switch  -->
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+        <label class="form-check-label" for="flexSwitchCheckChecked">Switch not working inside modal[fix it]</label>
+      </div>
+      <!-- checkboxes -->
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+        <label class="form-check-label" for="flexCheckChecked">
+          Checked checkbox
+        </label>
+      </div>
+  </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<!---->
+<script>
+
+    let name= "{{ pdf }}"
+    console.log(name)
+    var myState = {
+        pdf: null,
+        currentPage: 1,
+        zoom: 1.5
+    }
+    pdfjsLib.getDocument('{{ url_for("static",filename= pdf) }}').then((pdf) => {
+ 
+        myState.pdf = pdf;
+        render();
+    });
+    function render() {
+        myState.pdf.getPage(myState.currentPage).then((page) => {
+     
+            var canvas = document.getElementById("pdf_renderer");
+            var ctx = canvas.getContext('2d');
+ 
+            var viewport = page.getViewport(myState.zoom);
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+     
+            page.render({
+                canvasContext: ctx,
+                viewport: viewport
+            });
+        });
+    }
+
+    document.getElementById('go_previous')
+.addEventListener('click', (e) => {
+if(myState.pdf == null|| myState.currentPage == 1) 
+return;
+   
+myState.currentPage -= 1;
+document.getElementById("current_page").value = myState.currentPage;
+render();
+});
+
+document.getElementById('go_next')
+.addEventListener('click', (e) => {
+if(myState.pdf == null || myState.currentPage > myState.pdf._pdfInfo.numPages) 
+return;
+     
+myState.currentPage += 1;
+document.getElementById("current_page").value = myState.currentPage;
+render();
+});
+
+document.getElementById('current_page')
+.addEventListener('keypress', (e) => {
+if(myState.pdf == null) return;
+
+// Get key code
+var code = (e.keyCode ? e.keyCode : e.which);
+
+// If key code matches that of the Enter key
+if(code == 13) {
+    var desiredPage = document.getElementById('current_page').valueAsNumber;
+                     
+    if(desiredPage >= 1 && desiredPage <= myState.pdf._pdfInfo.numPages) {
+        myState.currentPage = desiredPage;
+        document.getElementById("current_page").value = desiredPage;
+        render();
+    }
+}
+});
+
+document.getElementById('zoom_in')
+.addEventListener('click', (e) => {
+if(myState.pdf == null) return;
+myState.zoom += 0.5;
+render();
+});
+
+document.getElementById('zoom_out')
+.addEventListener('click', (e) => {
+if(myState.pdf == null) return;
+myState.zoom -= 0.5;
+
+render();
+});
+</script>
+
+{% endblock %}

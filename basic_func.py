@@ -6,6 +6,8 @@ import fitz
 import io
 from PIL import Image
 from datetime import datetime
+import os
+import shutil
 # 1 .
 #code for checking if the uploaded file is pdf or not
 def file_upload_pdf_test(string):
@@ -107,3 +109,40 @@ def book_chapter(book):
 
 # name="cisco"
 # get_img(file,name)
+
+
+#create all the required folder
+def create_folder():
+    print("----------->>>>Status of folder <<<<<<<-----------")
+    if os.path.exists("static"):
+        print("folder static exist")
+    else:
+        os.mkdir("static")
+
+    #static/book
+    if os.path.exists("static/book") == True:
+        print("folder static/book exist")
+    else:
+        os.mkdir("static/book")
+    if os.path.exists("static/book_img")==True:
+        print("folder static/book_img exist")
+    else:
+        os.mkdir("static/book_img")   
+    #archive
+    if os.path.exists("static/archive") == True:
+        print("folder static/archive exist")
+    else:
+        os.mkdir("static/archive")    
+    if os.path.exists("static/archive/book") == True:
+        print("folder static/archive/book exist")
+    else:
+        os.mkdir("static/archive/book")
+
+    if os.path.exists("static/archive/book_img")==True:
+        print("folder static/archive/book_img exist")
+    else:
+        os.mkdir("static/archive/book_img")           
+            
+def move_file(arc_data):
+    # arc_data will be the list
+    shutil.move(loc+name,"archive/book")

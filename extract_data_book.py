@@ -43,6 +43,4 @@ reader = PdfReader(pdf)
 
 # extract text from pdf from a particular page
 page = reader.pages[5]
-# print(page.extract_text())
-print(pdf.getNumPages())
-print(pdf.documentInfo)
+print(page.extract_text())
