@@ -13,7 +13,9 @@ f= open("templates//data.json","r")
 s= f.read()
 data=json.loads(s)
 
-
+def connection():
+    conn = engine.connect()
+    return conn
 app = Flask(__name__)
 app.config.update(
     TESTING=True,
@@ -39,6 +41,7 @@ def home_page():
     shows = Upload_book.select().where(Upload_book.c.images != " ")
     result =conn.execute(shows)
     pop_books= result.fetchall()
+    conn.close()
 
 
     #logic for more books
@@ -46,6 +49,7 @@ def home_page():
     shows = Upload_book.select().where(Upload_book.c.images != " ")
     result =conn.execute(shows)
     more_books= result.fetchall()
+    conn.close()
 
     #CATEGORY SEECTION
     category_name=[]  
@@ -98,7 +102,11 @@ def register_done():
         register.compile().params
         conn = engine.connect()
         conn.execute(register)
+        conn.close()
         flash("you have been registered")
+    
+
+       
         return render_template("register.html")
 #---------->>>>>>>LOGIN/SIGNUP<<<<<<<-----------------#
 @app.route("/login")
@@ -133,6 +141,7 @@ def login_next():
             result =conn.execute(u_shows)
             u_books= result.fetchall()
             print("------>>>>>",u_books)
+            
 
 
             # logic for stats section
@@ -174,6 +183,7 @@ def book_user():
             u_book.compile().params
             conn = engine.connect()
             conn.execute(u_book)
+            conn.close()
             
             return "<h1> success </h1>"
         else: return "<h1> abc not uploaded</h1>"
@@ -199,7 +209,7 @@ def book_info(book_name):
         result =conn.execute(shows)
         res= result.fetchone()
         for i in res:
-            print("---->>>your res--",i)
+            pass
         return render_template("book_info.html",res=res)
 
 
@@ -242,14 +252,38 @@ def open_pdf2():
 #------------------------ sell book section ui--------------------------------------#
 @app.route("/sell_book")
 def sell_book_page():
-    return render_template("sell_book_1.html") 
+    if "value" in session:
+        sess= session["value"]
+        print(sess)
+        return render_template("sell_book_1.html",sess=sess)
+    else:
+        return "<h1> please login</h1>"
 
 @app.route("/sell_book_1" , methods=["GET","POST"])
 def sell_book_page_1():
+    
     if request.method == "POST":
-        book= request.files["file"]
-        f= secure_filename(book.filename)
-        return "<h1> its working </h1>"
+        price= request.form["price"]
+        name= request.form["book_name"]
+        description= request.form["desc"]
+        condition = request.form["condition"]
+        image= request.files.getlist("image")
+        for i in image:
+            secure_filename(i.filename)
+            i.save("static/sell_book/"+i.filename)
+        print("---->>>>",price,condition,description,image)
+
+        sell_book= Sell_book.insert().values(b_id =1,name_of_book=name,description=description,Condition=condition,price=price,time=datetimes())
+
+        sell_book.compile().params
+        conn = engine.connect()
+        conn.execute(sell_book)
+
+        images = Sell_book_images.insert(id=1)
+        sell_book.compile()
+        conn.close()
+        flash('This is a flash success message', 'success')
+        return render_template("sell_book_uploaded.html")
     
     # return render_template("sell_book_1.html") 
 #--------------------------------------------------------------------------------------#
@@ -280,7 +314,13 @@ def admin_login_next():
 @app.route("/admin_test")
 def admin_zone():
     return render_template("admin_zone.html")
+#for user logout
+@app.route("/logout_user")
+def logout_user():
+    session.pop("value",None)
+    return render_template("sign_in.html")
 
+#for admin logout
 @app.route("/logout")
 def logout():
     session.pop("value",None)

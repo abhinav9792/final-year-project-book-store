@@ -2,12 +2,31 @@
 
 {% block body%}
 
-<body>
-    <h1> Sell or donate books here</h1>
+<body style="background-color:white;">
+    <h1>hello</h1>
+    <h2>sell books</h2>
+    <h1>{{ sess }}</h1>
     <form method="POST"  enctype = "multipart/form-data" action="/sell_book_1" >
-        <label> Upload your pdf here</label><br/>
-        <input type="file" name="file"/>
+        <label> name of book</label>
+        <input type="text" name="book_name"/>
+       
+        <label> Price</label>
+        <input type="number" name="price"/>
+        
+        <label> Description</label>
+        <input type="text" name="desc"/> 
+        
+        <label> Condition</label>
+        <select name="condition">
+            <option>good</option>
+            <option>average</option>
+            <option>bad</option>
+            <option>good as new</option>
+        </select>
+        <label>upload images</label>
+        <input type="file" multiple name="image"/>
         <input type="Submit" placeholder="Tap when you have to upload"/>
     </form>
+
 </body>
 {% endblock %}

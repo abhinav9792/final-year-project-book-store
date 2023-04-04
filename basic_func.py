@@ -146,3 +146,19 @@ def create_folder():
 def move_file(arc_data):
     # arc_data will be the list
     shutil.move(loc+name,"archive/book")
+
+#GET BOOK INFORMATION
+def get_book_data(pdf_loc):
+    book_info={}
+    file = pdf_loc
+    pdf = fitz.open(file)
+    author =pdf.metadata["author"]
+    format =pdf.metadata["format"]
+    name =pdf.metadata["title"]
+    time = datetimes()
+    
+
+    return author,format,name,time
+
+
+print(get_book_data("static/books/CN_notes.pdf"))

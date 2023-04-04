@@ -1,0 +1,22 @@
+{% extends "general_templates.html" %}
+
+{% block body%}
+<body>
+    <h1>book uploaded</h1>
+    <div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+         <ul>
+         {% for message in messages %}
+         <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+           
+         {% endfor %}
+         </ul>
+        {% endif %}
+       {% endwith %}
+      </div>
+      
+      
+{% endblock %}

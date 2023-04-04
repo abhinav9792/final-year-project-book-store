@@ -62,11 +62,31 @@ User_upload_book=Table(
 )
 meta.create_all(engine)
 
+#not yet done [this function will store the information of deleted books]
 archive_book=Table(
     "archive_book",meta,
     Column("id",Integer,primary_key=True,autoincrement=True),
     Column("b_id",Integer),
     Column("name_of_book",String),
     Column("file",String),
+)
+meta.create_all(engine)
+
+Sell_book=Table(
+    "Sell_book",meta,
+    Column("id",Integer,primary_key=True,autoincrement=True),
+    Column("b_id",Integer),
+    Column("name_of_book",String),
+    Column("description",String),
+    Column("Condition",String),
+    Column("price",Integer),
+    Column("time",String)
+)
+meta.create_all(engine)
+
+Sell_book_images=Table(
+    "Sell_book_images",meta,
+    Column("id",Integer),
+    Column("image",String)
 )
 meta.create_all(engine)

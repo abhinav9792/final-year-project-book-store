@@ -1,6 +1,6 @@
-{% extends "general_templates.html %}
+{% extends "general_templates.html" %}
 {% block title %}registration page {% endblock %} 
-<!--  this creating problem fix it  
+<!--  this creating problem fix it  -->
         {% with messages = get_flashed_messages() %}  
         {% if messages %}  
               {% for message in messages %}  
@@ -11,7 +11,6 @@
               {% endfor %}  
         {% endif %}  
       {% endwith %}  
--->
       {% block body %}
         <section class="container mt-5">
             <div class="row justify-content-md-center">
@@ -21,20 +20,20 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name"/>
+                        <input type="text" class="form-control" id="name" name="name" required/>
                     </div>
             
                     <div class="mb-3">
                         <label  class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="name" name="email"/>
+                        <input type="email" class="form-control" id="name" name="email" required/>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="name" name="password"/>
+                        <input type="password" class="form-control" id="name" name="password" required/>
                     </div>
                     <div class="mb-3">
                         <label for="confirm_password" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm_password"/>
+                        <input type="password" class="form-control" id="confirm_password" required/>
                     </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="terms">
