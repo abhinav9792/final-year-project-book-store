@@ -75,7 +75,8 @@ meta.create_all(engine)
 Sell_book=Table(
     "Sell_book",meta,
     Column("id",Integer,primary_key=True,autoincrement=True),
-    Column("b_id",Integer),
+    Column("book_id",Integer,autoincrement=True),
+    Column("user_id",Integer),
     Column("name_of_book",String),
     Column("description",String),
     Column("Condition",String),
@@ -86,7 +87,10 @@ meta.create_all(engine)
 
 Sell_book_images=Table(
     "Sell_book_images",meta,
-    Column("id",Integer),
+    Column("id",Integer,primary_key=True,autoincrement=True),
+    Column("book_id",Integer,autoincrement=True),
+    Column("user_id",Integer),
+    Column("time",String),
     Column("image",String)
 )
 meta.create_all(engine)

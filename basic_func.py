@@ -142,6 +142,11 @@ def create_folder():
         print("folder static/archive/book_img exist")
     else:
         os.mkdir("static/archive/book_img")           
+    
+    if os.path.exists("static/sell_book")==True:
+        print("folder static/sell_book exist")
+    else:
+        os.mkdir("static/sell_book")           
             
 def move_file(arc_data):
     # arc_data will be the list

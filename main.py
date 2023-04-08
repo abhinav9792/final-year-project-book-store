@@ -261,30 +261,35 @@ def sell_book_page():
 
 @app.route("/sell_book_1" , methods=["GET","POST"])
 def sell_book_page_1():
-    
-    if request.method == "POST":
-        price= request.form["price"]
-        name= request.form["book_name"]
-        description= request.form["desc"]
-        condition = request.form["condition"]
-        image= request.files.getlist("image")
-        for i in image:
-            secure_filename(i.filename)
-            i.save("static/sell_book/"+i.filename)
-        print("---->>>>",price,condition,description,image)
+    if "value" in session:
+        sess= session["value"]
+        print("------>>>>>",sess)
+        if request.method == "POST":
+            price= request.form["price"]
+            name= request.form["book_name"]
+            description= request.form["desc"]
+            condition = request.form["condition"]
+            image= request.files.getlist("image")
+            
 
-        sell_book= Sell_book.insert().values(b_id =1,name_of_book=name,description=description,Condition=condition,price=price,time=datetimes())
+            sell_book= Sell_book.insert().values(name_of_book=name,description=description,Condition=condition,price=price,time=datetimes(),user_id=sess)
+            sell_book.compile().params
+            conn = engine.connect()
+            conn.execute(sell_book)
+            conn.close()
 
-        sell_book.compile().params
-        conn = engine.connect()
-        conn.execute(sell_book)
-
-        images = Sell_book_images.insert(id=1)
-        sell_book.compile()
-        conn.close()
-        flash('This is a flash success message', 'success')
-        return render_template("sell_book_uploaded.html")
-    
+            for i in image:
+                secure_filename(i.filename)
+                i.save("static/sell_book/"+i.filename)
+                sell_book_images= Sell_book_images.insert().values(user_id=sess,time=datetimes(),image=i.filename)
+                sell_book_images.compile().params
+                conn1= engine.connect()
+                conn1.execute(sell_book_images)
+                conn1.close()
+            flash('This is a flash success message', 'success')
+            return render_template("sell_book_uploaded.html")
+    else: 
+        return "please login"
     # return render_template("sell_book_1.html") 
 #--------------------------------------------------------------------------------------#
 #---------------------->>>>>>>>ADMIN ZONE<<<<<<<<<<<<<<<------------------------------#

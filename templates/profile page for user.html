@@ -1,6 +1,7 @@
 {% extends "general_templates.html" %}
 {% block title%} user login page {% endblock %}
 {% block body %} 
+
 <br/>
 <br/>
 <br/>
@@ -259,6 +260,30 @@
                                 </div>
                                 </div>
                                 <!-- your book section-->
+
+                                <!-- sell your books section -->
+                                <div class="col-sm-12"> 
+                                        
+                                    <div class="row">  
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-10 ">
+                                        <div class="col-sm-12 boxes"> <h3> Your books on Sale   </h3></div>
+                                        <div class="container-fluid"> 
+                                            <div class="row">
+                                                {% if True %}
+                                                <h3 style="text-align: center; color:white;">looks like you haven't uploaded any books right now</h3>
+                                                {% else %}
+                                               <h1> Books will be shows</h1>
+                                                {% endif %}
+
+                                            </div>
+                                            <br/>
+
+                                        </div>
+                                        </div>
+                                    <div class="col-sm-1"></div>
+                                </div>
+                                </div>
                                 </div>
 
             </div>
